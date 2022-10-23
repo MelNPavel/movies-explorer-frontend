@@ -1,0 +1,22 @@
+.navtab{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.navtab__link{
+    padding: 10px 23px;
+    text-decoration: none;
+    color: black;
+    background: #E8E8E8;
+    margin: 0 auto 30px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0px;
+}
+
+.navtab__link:hover{
+    background: #2BE080;
+}
