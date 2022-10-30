@@ -6,7 +6,7 @@ import logo from '../../images/logo.svg';
 function Header (props) {
     return (
         <header className="header">
-            <img className="header__logo"  alt="Логотип" src={logo} />
+            <Link to="/"><img className="header__logo"  alt="Логотип" src={logo} /></Link>
             <nav className='header__auth-area'>
                 <Link to="/signup" className="header__link">Регистрация</Link>
                 <Link to="/signin" className="header__link">Войти</Link>

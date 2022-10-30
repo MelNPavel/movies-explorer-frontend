@@ -1,27 +1,35 @@
 
-.profile__portfolio{
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 20px;
-    letter-spacing: 0px;
-    color: #A0A0A0;
+.profile{
+   max-width: 410px;
+   margin: 0 auto;
 }
 
-.profile__porfolio-inputs{
+.profile__title{
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 29px;
+    letter-spacing: 0em;
+}
+
+.profile__form{
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border-bottom: 1px solid #E8E8E8;
-    ;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.profile__porfolio-input{
-    padding: 20px 0;
-    margin: 0;
-    font-size: 30px;
-    font-weight: 400;
-    line-height: 50px;
-    letter-spacing: -0.04em;
-    text-decoration: none;
-    color: black;
+.profile__input{
+
+}
+
+.profile__input_type_name{
+
+}
+
+.profile__input{
+
+} 
+
+.popup__input_type_email{
+    
 }

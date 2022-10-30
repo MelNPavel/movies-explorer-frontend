@@ -18,14 +18,10 @@ function AboutProject () {
                 </div>
             </div>
             <div className='about-project__period'>
-                {/* <div className='about-project__period-line'> */}
                     <p className='about-project__period-line'>1 неделя</p>
                     <p className='about-project__period-line'>4 недели</p>
-                {/* </div> */}
-                {/* <div className='about-project__prof'> */}
                     <p className='about-project__period-prof'>Back-end</p>
                     <p className='about-project__period-prof'>Front-end</p>
-                {/* </div> */}
             </div>
         </section>
     )

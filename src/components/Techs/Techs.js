@@ -14,7 +14,7 @@ function Tech () {
                 <li className='techs__enumeration-input'>React</li>
                 <li className='techs__enumeration-input'>Git</li>
                 <li className='techs__enumeration-input'>Express.js</li>
-                <li className='techs__enumeration-input'>moongoDB</li>
+                <li className='techs__enumeration-input'>mongoDB</li>
             </ul>
         </section>
     )

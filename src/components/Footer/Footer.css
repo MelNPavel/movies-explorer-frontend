@@ -1,6 +1,6 @@
 .footer{
     background: #FAFAFA;
-    padding: 80px 70px 20px;
+    padding: 60px 70px 20px;
 }
 
 .footer__title{
@@ -43,4 +43,9 @@
 .footer__link{
     text-decoration: none;
     color: black;
+    transition: opacity .4s ease;
+}
+
+.footer__link:hover{
+    opacity: .4;
 }
