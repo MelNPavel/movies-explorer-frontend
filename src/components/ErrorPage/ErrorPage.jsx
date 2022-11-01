@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import './ErrorPage.css';
 
 function ErrorPage() {
     const history = useHistory();

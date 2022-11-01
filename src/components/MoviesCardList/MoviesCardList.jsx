@@ -1,6 +1,7 @@
 import React from 'react';
 
-import MoviesCard from '../MoviesCard/MoviesCard.js';
+import MoviesCard from '../MoviesCard/MoviesCard.jsx';
+import './MoviesCardList.css';
 
 
 function MoviesCardList ({moviesCard, moreButtonVisibility}) {

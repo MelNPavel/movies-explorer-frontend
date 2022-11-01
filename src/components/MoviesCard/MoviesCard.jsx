@@ -1,5 +1,6 @@
 import React from 'react';
 import flag from '../../images/flag.png';
+import './MoviesCard.css';
 
 function MoviesCard ({card}) {
     return(

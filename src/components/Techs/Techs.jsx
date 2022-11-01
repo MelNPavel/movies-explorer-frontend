@@ -1,5 +1,6 @@
 import React from 'react';
 // import NavTab from '../NavTab/Navtab'
+import './Techs.css';
 
 function Tech () {
     return(

@@ -1,6 +1,7 @@
 import React from 'react';
-import SearchForm from '../SearchForm/SearchForm.js';
-import MoviesCardList from '../MoviesCardList/MoviesCardList.js';
+import SearchForm from '../SearchForm/SearchForm.jsx';
+import MoviesCardList from '../MoviesCardList/MoviesCardList.jsx';
+import './SavedMovies.css';
 
 function SavedMovies() {
     const moviesCard = [

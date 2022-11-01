@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import './Footer.css';
 // import foto from '../../images/jonathan.jpg'
+
 
 function Footer () {
     const points = [

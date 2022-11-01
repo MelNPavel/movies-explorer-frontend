@@ -1,16 +1,17 @@
 import React from 'react';
 import { Switch, Route } from "react-router-dom";
 // import ProtectedRoute from '../../utils/ProtectedRoute.js';
+import './App.css';
 
-import Header from '../Header/Header.js';
-import Main from '../Main/Main.js';
-import Footer from '../Footer/Footer.js';
-import Movies from '../Movies/Movies.js';
-import SavedMovies from '../SavedMovies/SavedMovies.js';
-import Profile from '../Profile/Profile.js';
-import Register from '../Register/Register.js';
-import Login from '../Login/Login.js';
-import ErrorPage from '../ErrorPage/ErrorPage.js';
+import Header from '../Header/Header.jsx';
+import Main from '../Main/Main.jsx';
+import Footer from '../Footer/Footer.jsx';
+import Movies from '../Movies/Movies.jsx';
+import SavedMovies from '../SavedMovies/SavedMovies.jsx';
+import Profile from '../Profile/Profile.jsx';
+import Register from '../Register/Register.jsx';
+import Login from '../Login/Login.jsx';
+import ErrorPage from '../ErrorPage/ErrorPage.jsx';
 // import { CurrentUserContext } from '../context/CurrentUserContext.js';
 
 

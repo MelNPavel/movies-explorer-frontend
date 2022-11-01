@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
+import './Header.css';
 
 import logo from '../../images/logo.svg';
 import Navigation from '../Navigation/Navigation';
@@ -44,9 +45,9 @@ function Header (props) {
             <Route exact path="/">
                 <header className="header">
                     <Link to="/"><img className="header__logo"  alt="Логотип" src={logo} /></Link>
-                    <nav className='header__auth-area'>
-                        <Link to="/signup" className="header__link">Регистрация</Link>
-                        <Link to="/signin" className="header__link">Войти</Link>
+                    <nav className='header__auth-area-main'>
+                        <Link to="/signup" className="header__link-main">Регистрация</Link>
+                        <Link to="/signin" className="header__link-main">Войти</Link>
                     </nav>
                 </header>
             </Route>

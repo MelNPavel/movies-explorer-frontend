@@ -1,5 +1,6 @@
 import React from 'react';
-import NavTab from '../NavTab/Navtab'
+import NavTab from '../NavTab/Navtab.jsx';
+import './Promo.css';
 
 function Promo () {
     return(

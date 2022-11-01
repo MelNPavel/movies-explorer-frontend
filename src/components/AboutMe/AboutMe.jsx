@@ -1,5 +1,6 @@
 import React from 'react';
 import foto from '../../images/jonathan.jpg'
+import './AboutMe.css';
 
 function AboutMe () {
     return(

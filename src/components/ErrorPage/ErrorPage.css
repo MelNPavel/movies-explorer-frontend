@@ -32,5 +32,23 @@
     color: #FF6838;
     background-color: white;
     border: 0;
+}
 
+
+@media screen and (max-width: 540px){
+    .error-page__title{
+        font-size: 80px;
+        line-height: 97px;
+    }
+
+    .error-page__text{
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .error-page__button{
+        margin-top: 125px;
+        font-size: 12px;
+        line-height: 15px;
+    }
 }

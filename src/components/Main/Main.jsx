@@ -1,9 +1,10 @@
 import React from 'react';
-import Promo from '../Promo/Promo.js';
-import AboutProject from '../AboutProject/AboutProject.js';
-import Tech from '../Techs/Techs.js';
-import AboutMe from '../AboutMe/AboutMe.js';
-import Portfolio from '../Portfolio/Portfolio.js';
+import Promo from '../Promo/Promo.jsx';
+import AboutProject from '../AboutProject/AboutProject.jsx';
+import Tech from '../Techs/Techs.jsx';
+import AboutMe from '../AboutMe/AboutMe.jsx';
+import Portfolio from '../Portfolio/Portfolio.jsx';
+import './Main.css';
 // import Profile from '../Profile/Profile.js';
 
 function Main (props) {

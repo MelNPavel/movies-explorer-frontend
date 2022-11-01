@@ -20,12 +20,29 @@
     gap: 10px;
 }
 
+.header__auth-area-main{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .header__link-movies{
     display: flex;
     flex-direction: row;
 }
 
 .header__link{
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0px;
+    text-decoration: none;
+    color: black;
+    padding: 8px 20px;
+    border-radius: 3px;
+}
+
+.header__link-main{
     font-size: 12px;
     font-weight: 500;
     line-height: 16px;
@@ -51,8 +68,6 @@
         padding: 18px 30px;
         margin: 0 auto;
     }
-    
-
 }
 
 @media screen and (max-width: 540px){
@@ -60,6 +75,4 @@
         padding: 18px 14px;
         margin: 0 auto;
     }
-    
-
 }

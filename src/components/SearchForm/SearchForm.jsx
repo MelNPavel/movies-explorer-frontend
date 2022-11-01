@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import React, { useState} from 'react';
 import magnifier from '../../images/magnifier.png';
 import searchButton from '../../images/searchButton.png';
+import './SearchForm.css';
 
 function SearchForm () {
     const [oncheck, setonCheck] = useState(true);

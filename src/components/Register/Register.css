@@ -1,5 +1,6 @@
 .register{
     max-width: 396px;
+    width: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -31,7 +32,8 @@
      font-weight: 500;
      font-size: 11px;
      line-height: 13px;
-     width: 396px;
+     max-width: 396px;
+     width: 100%;
      padding-bottom: 10px;
      border-bottom: 1px solid #E8E8E8;
  }
@@ -47,6 +49,8 @@
  .register__input-name-block{
      display: flex;
      flex-direction: column;
+     max-width: 396px;
+     width: 100%;
  }
  
  .register__input-name-field{
@@ -62,6 +66,8 @@
      display: flex;
      flex-direction: column;
      padding-top: 17px;
+     max-width: 396px;
+     width: 100%;
  }
  
  .popup__input_type_email{
@@ -86,7 +92,8 @@
     border: 0;
     border-radius: 3px;;
     background-color: #FF6838;
-    width: 396px;
+    max-width: 396px;
+    width: 100%;
     font-size: 14px;
     font-weight: 500;
     line-height: 17px;
@@ -119,6 +126,8 @@
     display: flex;
     flex-direction: column;
     padding-top: 17px;
+    max-width: 396px;
+    width: 100%;
  }
 
 .register__input-password-field{
@@ -133,4 +142,46 @@
 .register__input_type_password{
     display: flex;
      flex-direction: column;
+}
+
+@media screen and (max-width: 540px){
+    .register__button-reg{
+        max-width: 260px;
+        width: 100%;
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .register__link-signin{
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .register__link{
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .register__input-email-block{
+        max-width: 260px;
+        width: 100%;
+    }
+
+    .register__input-name-block{
+        max-width: 260px;
+        width: 100%;
+    }
+
+    .register__input-password-block{
+        max-width: 260px;
+        width: 100%;
+    }
+
+    .register__title{
+        text-align: center;
+    }
+
+    .register__buttons{
+        margin-top: 132px;
+    }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './Navtab.css';
 
 function Navtab () {
     return(
