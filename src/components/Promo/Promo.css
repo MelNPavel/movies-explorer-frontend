@@ -20,3 +20,19 @@
     letter-spacing: -0.04em;
     text-align: center;
 }
+
+@media screen and (max-width: 768px){
+    .promo{
+        margin: 20px;
+    }
+    .promo__title{
+        font-size: 40px;
+        line-height: 52px;
+    }
+}
+
+@media screen and (max-width: 540px){
+    .promo{
+        margin: 20px 20px 0 20px;
+    }
+}

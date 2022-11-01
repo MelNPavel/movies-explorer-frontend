@@ -1,7 +1,12 @@
-
 .profile{
    max-width: 410px;
    margin: 0 auto;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   align-items: stretch;
+   height: 550px;
+   padding: 74px 0 69px;
 }
 
 .profile__title{
@@ -10,26 +15,86 @@
     font-weight: 500;
     line-height: 29px;
     letter-spacing: 0em;
+    margin: 0;
 }
 
 .profile__form{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
 }
 
 .profile__input{
-
+    border: 0;
+    outline:none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+    width: 400px;
 }
 
 .profile__input_type_name{
+    
+}
+
+.profile__input-name-block{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid #E8E8E8;
+    padding-bottom: 17px;
+}
+
+.profile__input-name-field{
+    margin: 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+}
+
+.profile__input-email-block{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 17px;
+}
+
+.popup__input_type_email{
 
 }
 
-.profile__input{
+.profile__error{
 
-} 
+}
 
-.popup__input_type_email{
-    
+.profile__buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 17px;
+}
+
+.profile__button-edit{
+    border: 0;
+    background-color: white;
+    font-family: Inter;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0px;
+    text-align: center;
+}
+
+.profile__onlogout{
+    border: 0;
+    background-color: white;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    color: #EE3465;
 }

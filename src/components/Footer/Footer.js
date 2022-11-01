@@ -1,8 +1,15 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
 // import foto from '../../images/jonathan.jpg'
 
 function Footer () {
+    const points = [
+        "/",
+        "/movies",
+        "/saved-movies"
+    ]
     return(
+        <Route exact path={points}>
         <section className="footer">
             <h4 className='footer__title'>Учебный проект Яндекс.Практикум х BeatFilm.</h4>
             <div className='footer__podval'>
@@ -13,6 +20,7 @@ function Footer () {
                 </div>
             </div>
         </section>
+        </Route>
     )
 };
 

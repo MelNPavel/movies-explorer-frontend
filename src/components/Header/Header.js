@@ -1,29 +1,58 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-// Route, Switch
+import { Link, Switch, Route } from 'react-router-dom';
+
 import logo from '../../images/logo.svg';
+import Navigation from '../Navigation/Navigation';
 
 function Header (props) {
+    const points = [
+        "/movies",
+        "/saved-movies/",
+        "/profile"
+    ]
     return (
-        <header className="header">
-            <Link to="/"><img className="header__logo"  alt="Логотип" src={logo} /></Link>
-            <nav className='header__auth-area'>
-                <Link to="/signup" className="header__link">Регистрация</Link>
-                <Link to="/signin" className="header__link">Войти</Link>
-                    {/* <Switch>
-                        <Route exact path="/">
-                            
-                        </Route>
-                        <Route path="/signup">
-                            <Link to="/signin" className="link-auth">Войти</Link>
-                        </Route>
-                        <Route path="/signin">
-                            <Link to="/signup" className="link-auth">Регистрация</Link>
-                        </Route>
-                    </Switch> */}
-                    
-            </nav>
-        </header>
+        
+        <Switch>
+            
+            <Route path={points}>
+                <header className="header">
+                    <nav className='header__auth-area'>
+                        <Link to="/"><img className="header__logo"  alt="Логотип" src={logo} /></Link>
+                        <div className='header__link-movies'>
+                            <Link to="/movies" className="header__link">Фильмы</Link>
+                            <Link to="/saved-movies" className="header__link">Сохраненые фильмы</Link>
+                        </div>
+                    </nav>
+                    <Link to="/profile" className="header__link">Аккаунт</Link>
+                    <Navigation />
+                </header>
+            </Route>
+            
+            <Route path={"/signup"}>
+                <header className="header header__logo-auth-page">
+                    <Link to="/"><img className=".header__logo-auth-page"  alt="Логотип" src={logo} /></Link>
+                </header>
+            </Route>
+
+            <Route path={"/signin"}>
+                <header className="header header__logo-auth-page">
+                <Link to="/"><img className=".header__logo-auth-page"  alt="Логотип" src={logo} /></Link>
+                </header>
+            </Route>
+
+
+            <Route exact path="/">
+                <header className="header">
+                    <Link to="/"><img className="header__logo"  alt="Логотип" src={logo} /></Link>
+                    <nav className='header__auth-area'>
+                        <Link to="/signup" className="header__link">Регистрация</Link>
+                        <Link to="/signin" className="header__link">Войти</Link>
+                    </nav>
+                </header>
+            </Route>
+            
+        </Switch> 
+        
     )
 };
 

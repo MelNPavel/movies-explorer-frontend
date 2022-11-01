@@ -8,13 +8,21 @@
     margin: 0 auto;
 }
 
-.header__logo{
-
+.header__logo-auth-page{
+    justify-content: start;
+    padding: 70px 0 40px 0;
+    max-width: 396px;
 }
 
 .header__auth-area{
     display: flex;
+    align-items: center;
     gap: 10px;
+}
+
+.header__link-movies{
+    display: flex;
+    flex-direction: row;
 }
 
 .header__link{
@@ -30,4 +38,28 @@
 
 .header__link:hover{
     background: #2BE080;        
+}
+
+@media screen and (max-width: 769px) {
+    .header__link {
+      display: none;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .header{
+        padding: 18px 30px;
+        margin: 0 auto;
+    }
+    
+
+}
+
+@media screen and (max-width: 540px){
+    .header{
+        padding: 18px 14px;
+        margin: 0 auto;
+    }
+    
+
 }

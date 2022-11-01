@@ -1,9 +1,10 @@
 import React from 'react';
 import SearchForm from '../SearchForm/SearchForm.js';
-// import Preloader from '../Preloader/Preloader.js';
+import Preloader from '../Preloader/Preloader.js';
 import MoviesCardList from '../MoviesCardList/MoviesCardList.js';
 
 function Movies () {
+    const load = false;
     const moviesCard = [
         {
             id: 1,
@@ -76,10 +77,12 @@ function Movies () {
     return(
         <section className="movies">
             <SearchForm />
+            { load ? 
+            <Preloader /> : 
             <MoviesCardList
             moviesCard={moviesCard}
             moreButtonVisibility = {true} />
-            {/* <Preloader /> */}
+}
         </section>
     )
 };

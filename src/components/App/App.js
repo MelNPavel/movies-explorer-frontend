@@ -8,8 +8,9 @@ import Footer from '../Footer/Footer.js';
 import Movies from '../Movies/Movies.js';
 import SavedMovies from '../SavedMovies/SavedMovies.js';
 import Profile from '../Profile/Profile.js';
-// import Login from '../Login/Login.js';
-// import Register from '../Register/Register.js';
+import Register from '../Register/Register.js';
+import Login from '../Login/Login.js';
+import ErrorPage from '../ErrorPage/ErrorPage.js';
 // import { CurrentUserContext } from '../context/CurrentUserContext.js';
 
 
@@ -38,13 +39,16 @@ function App() {
                         <Profile />
                     </Route>
 
-                    {/* <Route path="/signin">
+                    <Route path="/signup">
+                        <Register />
+                    </Route>
+
+                    <Route path="/signin">
                         <Login />
                     </Route>
 
-                    <Route path="/signup">
-                        <Register />
-                    </Route> */}
+                    <Route component={ErrorPage}/>
+
                 </Switch>
                 <Footer />
             </div>

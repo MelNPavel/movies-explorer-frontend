@@ -30,3 +30,24 @@
     text-decoration: none;
     color: black;
 }
+
+@media screen and (max-width: 768px){
+    .portfolio{
+        padding: 0 50px 90px;
+        margin: 0 auto;
+    }
+    .porfolio__input{
+        font-size: 28px;
+    }
+}
+
+@media screen and (max-width: 540px){
+    .portfolio{
+        padding: 0 14px 70px;
+        margin: 0 auto;
+    }
+    .porfolio__input{
+        font-size: 14px;
+        line-height: 20px;
+    }
+}

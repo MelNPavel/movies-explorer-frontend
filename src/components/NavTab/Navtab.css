@@ -20,3 +20,18 @@
 .navtab__link:hover{
     background: #2BE080;
 }
+
+@media screen and (max-width: 540px){
+    .navtab{
+        gap: 6px;
+    }
+
+    .navtab__link{
+        margin: 0 auto 17px;
+    }
+
+    .navtab__link{
+        font-size: 10px;
+        padding: 5px 15px;
+    }
+}
