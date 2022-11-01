@@ -21,7 +21,7 @@ function SearchForm () {
                 <div className='search__control'>
                     <div className='search__checkbox-area'>
                         <input type='checkbox' checked={oncheck} onChange={() => setonCheck(!oncheck)} className ='search__checkbox' id='checkbox-lable'/>
-                        <lable className='search__checkbox-lable' htmlFor='checkbox-lable' />
+                        <label className='search__checkbox-lable' htmlFor='checkbox-lable' />
                         <p className='searc__checkbox-film'>Короткометражки</p>
                     </div>
                     
