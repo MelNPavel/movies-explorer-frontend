@@ -4,7 +4,7 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    height: 550px;
+    height: 505px;
     padding-bottom: 69px;
  }
  
@@ -145,6 +145,10 @@
 }
 
 @media screen and (max-width: 540px){
+    .register{
+        height: 500px;
+     }
+    
     .register__button-reg{
         max-width: 260px;
         width: 100%;
@@ -182,6 +186,6 @@
     }
 
     .register__buttons{
-        margin-top: 132px;
+        margin-top: 75px;
     }
 }

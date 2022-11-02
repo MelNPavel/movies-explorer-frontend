@@ -1,17 +1,16 @@
 .header{
-    max-width: 1280px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 16px 55px 16px 70px;
-    margin: 0 auto;
 }
 
 .header__logo-auth-page{
     justify-content: start;
     padding: 70px 0 40px 0;
     max-width: 396px;
+    margin: 0 auto;
 }
 
 .header__auth-area{
@@ -54,7 +53,11 @@
 }
 
 .header__link:hover{
-    background: #2BE080;        
+    background: #2BE080;
+}
+
+.header__link-main:hover{
+    background: #2BE080;
 }
 
 @media screen and (max-width: 769px) {
@@ -74,5 +77,10 @@
     .header{
         padding: 18px 14px;
         margin: 0 auto;
+    }
+
+    .header__logo-auth-page{
+        justify-content: center;
+        padding: 55px 0 40px 0;
     }
 }

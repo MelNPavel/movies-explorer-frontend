@@ -15,7 +15,7 @@ function MoviesCardList ({moviesCard, moreButtonVisibility}) {
                 />)}
             </div>
             <div className='movies-list__more'>
-                <button className={`movies-list__more-button ${moreButtonVisibility ? 'movies-list__more-button-visibility' : ''}`}>
+                <button className={`movies-list__more-button ${moreButtonVisibility ? 'movies-list__more-button-visibility' : ''}`} type='button'>
                     Ещё
                 </button>
             </div>

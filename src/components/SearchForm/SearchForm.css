@@ -44,6 +44,10 @@
   width: 95%;
 }
 
+.search__textarea:focus{
+  border-bottom: 1px solid #FF6838;
+}
+
 .search__control{
   display: flex;
   flex-direction: row;
@@ -62,6 +66,11 @@
   padding-left: 3px;
   margin-right: 25px;
   flex-grow: 0;
+  transition: opacity .4s ease;
+}
+
+.search__button:hover{
+  opacity: .4;
 }
 
 .search__checkbox{
