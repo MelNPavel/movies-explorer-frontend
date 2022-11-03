@@ -11,7 +11,13 @@
     margin: 0;
 }
 
-.porfolio__inputs{
+.portfolio__inputs{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.portfolio__link{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -20,7 +26,7 @@
     text-decoration: none;
 }
 
-.porfolio__input{
+.portfolio__type-project{
     padding: 20px 0;
     margin: 0;
     font-size: 30px;
@@ -46,7 +52,7 @@
         padding: 0 14px 70px;
         margin: 0 auto;
     }
-    .porfolio__input{
+    .portfolio__type-project{
         font-size: 14px;
         line-height: 20px;
     }

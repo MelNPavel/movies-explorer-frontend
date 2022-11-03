@@ -15,8 +15,8 @@ function AboutMe () {
                         </p>
                     </div>
                     <nav className='about-me__data-link'>
-                        <a className='about-me__link' href='https://vk.com/'>VK</a>
-                        <a className='about-me__link' href='https://github.com/MelNPavel'>Gihtub</a>
+                        <a className='about-me__link' href='https://vk.com/' target="_blank" rel="noreferrer">VK</a>
+                        <a className='about-me__link' href='https://github.com/MelNPavel'target="_blank" rel="noreferrer">Gihtub</a>
                     </nav>
                 </div>
                 <img className='about-me__foto' src={foto} alt='фото студента'/>

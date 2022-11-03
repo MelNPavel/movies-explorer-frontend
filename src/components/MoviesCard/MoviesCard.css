@@ -11,7 +11,12 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-right: 14px;
+    padding: 14px;
+}
+
+.movies-card__data-input{
+    list-style-type: none;
+    padding-left: 0;
 }
 
 .movies-card__title{
@@ -19,7 +24,7 @@
     font-weight: 500;
     line-height: 18px;
     margin: 0;
-    padding: 14px 14px 9px;
+    padding-bottom: 9px;
 }
 
 .movies-card__time{
@@ -29,8 +34,6 @@
     text-align: left;
     color: #A0A0A0;
     margin: 0;
-    padding-left: 14px;
-    padding-bottom: 14px;
 }
 
 .movies-card__flag{

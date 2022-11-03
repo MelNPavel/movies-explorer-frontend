@@ -13,12 +13,12 @@ function Navigation() {
         </label>
 
         <ul className="menu__box">
-            <li className='menu__box-item'><Link to="/" className="menu__item">Главная</Link></li>
-            <li className='menu__box-item'><Link to="/movies" className="menu__item" >Фильмы</Link></li>
-            <li className='menu__box-item'><Link to="/saved-movies"className="menu__item" href="#">Сохраненные фильмы</Link></li>
-            <li className='menu__box-item'><Link to="/profile"className="menu__item" href="#">Аккаунт</Link></li>
+            <li className='menu__box-item'><Link to="/" className="menu__item" target="_blank" rel="noreferrer">Главная</Link></li>
+            <li className='menu__box-item'><Link to="/movies" className="menu__item" target="_blank" rel="noreferrer">Фильмы</Link></li>
+            <li className='menu__box-item'><Link to="/saved-movies"className="menu__item" href="#" target="_blank" rel="noreferrer">Сохраненные фильмы</Link></li>
+            <li className='menu__box-item'><Link to="/profile"className="menu__item" href="#" target="_blank" rel="noreferrer">Аккаунт</Link></li>
         </ul>
-  </div>
+    </div>
     )
 };
 

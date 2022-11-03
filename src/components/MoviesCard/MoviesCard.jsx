@@ -4,18 +4,18 @@ import './MoviesCard.css';
 
 function MoviesCard ({card}) {
     return(
-        <div className='movies-card'>
+        <li className='movies-card'>
             <div className='movies-card__data'>
-                <div>
-                <p className='movies-card__title'>{card.title}</p>
-                <p className='movies-card__time'>{card.time}</p>
-                </div>
+                <ul className='movies-card__data-input'>
+                <li className='movies-card__title'>{card.title}</li>
+                <li className='movies-card__time'>{card.time}</li>
+                </ul>
                 <button className='movies-card__flag' type='button'>
                     <img className='movies-card__flag-icon' src={flag} alt='флаг лайка' />
                 </button>
             </div>
             <img className='movies-card__image' src={card.image} alt={card.title} />
-        </div>
+        </li>
     )
 };
 

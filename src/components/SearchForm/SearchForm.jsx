@@ -12,9 +12,13 @@ function SearchForm () {
                 <div className='search__input-area'>
                     <div className='search__input'>
                         <img src={magnifier} className='search__magnifier' alt='поле поиска значек лупы'/>
-                        <input className='search__textarea' type="text" placeholder='Фильм'/>
+                        <input
+                        className='search__textarea'
+                        type="text"
+                        placeholder='Фильм'
+                        required />
                     </div>
-                    <button className='search__button' type="button"> 
+                    <button className='search__button' type="submit"> 
                         <img src={searchButton} alt='кнопка начала поиска'/>
                     </button>
                 </div>
@@ -25,7 +29,6 @@ function SearchForm () {
                             type='checkbox' 
                             checked={oncheck} 
                             onChange={() => setonCheck(!oncheck)}
-                            required 
                         />
                         <label className='search__checkbox-lable' htmlFor='checkbox-lable' />
                         <p className='searc__checkbox-film'>Короткометражки</p>

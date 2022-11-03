@@ -6,18 +6,26 @@ function Portfolio () {
     return(
         <section className="portfolio">
                 <h3 className='portfolio__title'>Портфолио</h3>
-                <a className='porfolio__inputs' href='https://github.com/MelNPavel/russian-travel'>
-                    <p className='porfolio__input'>Статичный сайт</p>
-                    <img src={arrow} alt='картинка стрелки с сылкой на проект'/>
-                </a>
-                <a className='porfolio__inputs' href='https://github.com/MelNPavel/mesto'>
-                    <p className='porfolio__input'>Адаптивный сайт</p>
-                    <img src={arrow} alt='картинка стрелки с сылкой на проект'/>
-                </a>
-                <a className='porfolio__inputs' href='https://github.com/MelNPavel/react-mesto-api-full'>
-                    <p className='porfolio__input'>Одностраничное приложение</p>
-                    <img src={arrow} alt='картинка стрелки с сылкой на проект'/>
-                </a>
+                <ul className='portfolio__inputs'>
+                    <li>
+                        <a className='portfolio__link' target="_blank" rel="noreferrer" href='https://github.com/MelNPavel/russian-travel'>
+                            <p className='portfolio__type-project'>Статичный сайт</p>
+                            <img src={arrow} alt='картинка стрелки с сылкой на проект'/>
+                        </a>
+                    </li>
+                    <li>
+                        <a className='portfolio__link' target="_blank" rel="noreferrer" href='https://github.com/MelNPavel/mesto'>
+                            <p className='portfolio__type-project'>Адаптивный сайт</p>
+                            <img src={arrow} alt='картинка стрелки с сылкой на проект'/>
+                        </a>
+                    </li>
+                    <li>
+                        <a className='portfolio__link' target="_blank" rel="noreferrer" href='https://github.com/MelNPavel/react-mesto-api-full'>
+                            <p className='portfolio__type-project'>Одностраничное приложение</p>
+                            <img src={arrow} alt='картинка стрелки с сылкой на проект'/>
+                        </a>
+                    </li>
+                </ul>
         </section>
     )
 };
