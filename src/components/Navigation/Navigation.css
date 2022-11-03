@@ -21,7 +21,7 @@
 }
 
 .menu__btn {
-    position: fixed;
+    position: absolute;
     top: 30px;
     right: 20px;
     width: 26px;

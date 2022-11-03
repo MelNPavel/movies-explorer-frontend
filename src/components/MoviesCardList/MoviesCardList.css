@@ -68,13 +68,6 @@
 }
 
 @media screen and (max-width: 540px){
-    .movies-list{
-        padding-top: 70px;
-        max-width: 1140px;
-        margin: 0 auto;
-        padding-bottom: 30px;
-    }
-
     .movies-list__card{
         grid-template-columns: repeat(auto-fit, 300px);
         gap: 36px 22px;
