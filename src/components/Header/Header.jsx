@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Link, NavLink, Switch, Route } from 'react-router-dom';
 import './Header.css';
 
 import logo from '../../images/logo.svg';
@@ -18,13 +18,13 @@ function Header (props) {
             <Route path={points}>
                 <header className="header">
                     <nav className='header__auth-area'>
-                        <Link to="/" target="_blank" rel="noreferrer"><img className="header__logo"  alt="Логотип" src={logo} /></Link>
+                        <NavLink to="/" rel="noreferrer"><img className="header__logo"  alt="Логотип" src={logo} /></NavLink>
                         <div className='header__link-movies'>
-                            <Link to="/movies" target="_blank" rel="noreferrer" className="header__link">Фильмы</Link>
-                            <Link to="/saved-movies" target="_blank" rel="noreferrer" className="header__link">Сохраненые фильмы</Link>
+                            <NavLink to="/movies" rel="noreferrer" className="header__link">Фильмы</NavLink>
+                            <NavLink to="/saved-movies" rel="noreferrer" className="header__link">Сохраненые фильмы</NavLink>
                         </div>
                     </nav>
-                    <Link to="/profile" target="_blank" rel="noreferrer" className="header__link">Аккаунт</Link>
+                    <NavLink to="/profile" rel="noreferrer" className="header__link">Аккаунт</NavLink>
                     <Navigation />
                 </header>
             </Route>

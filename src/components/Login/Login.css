@@ -58,9 +58,13 @@
     color: #A0A0A0;
 }
 
-
  .login__error{
- 
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 12px;
+    text-align: left;
+    color: #EE3465;
+    height: 24px;
  }
  
  .login__buttons{
@@ -86,6 +90,11 @@
     color: white;
     padding: 15px 0;
     cursor: pointer;
+ }
+
+ .login__button-reg_disable{
+    opacity: 0.3;
+    pointer-events: none;
  }
  
  .login__link-signin{
