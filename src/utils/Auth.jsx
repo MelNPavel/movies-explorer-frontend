@@ -6,14 +6,14 @@ const checkResponse = (res) =>
     res.json()
     : Promise.reject(new Error(`Ошибка ${res.status}: ${res.statusText}`));
 
-export const auth = (email, password) => {
+export const registration = (name, email, password) => {
   return fetch(`${baseUrl}/signup`, {
     credentials: 'include',
     method: 'POST',
     headers: {      
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({email, password})
+    body: JSON.stringify({name, email, password})
   })
   .then(res => checkResponse(res))
 };
@@ -42,7 +42,7 @@ export const getContent = () => {
 };
 
 export const logout = () => {
-  return fetch(`${baseUrl}/onlogout`, {
+  return fetch(`${baseUrl}/signout`, {
     credentials: 'include',
       method: 'POST',
       headers: {        

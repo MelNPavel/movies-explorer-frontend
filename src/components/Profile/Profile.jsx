@@ -56,7 +56,6 @@ function Profile (props) {
                         error={errorName}
                         onChange={handleChandgeName}
                         value={name}
-                        
                         pattern="^[A-ZА-ЯЁa-zа-яё  -]+$"
                     />
                     <span className="profile__error type-name-error">{errorName}</span>

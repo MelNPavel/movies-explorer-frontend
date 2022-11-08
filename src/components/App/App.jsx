@@ -13,7 +13,7 @@ import Profile from '../Profile/Profile.jsx';
 import Register from '../Register/Register.jsx';
 import Login from '../Login/Login.jsx';
 import ErrorPage from '../ErrorPage/ErrorPage.jsx';
-import { auth, authorize, getContent, logout } from "../../utils/Auth.jsx";
+import { registration, authorize, getContent, logout } from "../../utils/Auth.jsx";
 
 
 
@@ -49,14 +49,11 @@ useEffect(() => {
 
 //Регистрация
 const handleRegister = (data) => {
-    auth(data.email, data.password)
+    registration(data.name, data.email, data.password)
         .then((res) => {
-            if (res.data) {
-                setInfoTooltip(true);
-                setLoggedIn(true);
-                setEmail(data.email);
-                history.push ('/signin');
-            }
+            setcurrentUser(res)
+            setLoggedIn(true);
+            history.push ('/movies');
         })
         .catch((err) => {
             setInfoTooltip(true);
@@ -68,7 +65,7 @@ const handleRegister = (data) => {
 
 //Обновление данных пользователя
 const handleEditProfile = (data) => {
-    api.addUser(data.name, data.email)
+    api.editProfile(data)
         .then((res) => {
             setcurrentUser(res)
         })
@@ -95,7 +92,6 @@ const onlogOut = () => {
     logout()
         .then(() => {
             setLoggedIn(false);
-            setEmail("");
             history.push ('/');
         })
         .catch((err) => {

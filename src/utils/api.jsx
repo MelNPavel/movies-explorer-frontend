@@ -73,8 +73,8 @@ likeUnPut(cardId) {
     .then(this._checkResponse)
 };
 
-avatar(data) {
-    return fetch (`${this.url}/users/me/avatar`, {
+editProfile(data) {
+    return fetch (`${this.url}/users/me`, {
         credentials: 'include',
         method: 'PATCH',
         headers: this.headers,

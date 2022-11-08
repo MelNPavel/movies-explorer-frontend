@@ -31,7 +31,6 @@ function Login (props) {
         });
     }
 
-    
     return(
         <div className="login">
             <h2 className='login__title'>Рады видеть!</h2>

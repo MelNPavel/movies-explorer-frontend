@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Register.css';
+import { CurrentUserContext } from '../../context/CurrentUserContext.jsx';
+import { useEffect } from 'react';
 
 function Register(props) {
+    const currentUser = React.useContext(CurrentUserContext);
     const [error, setError] = useState([]);
     const [valid, setValid] = useState([]);
-
+    
     const [registerData, setRegisterData] = useState({
+        name:'',
         email:'',
         password:'',
     })
@@ -43,14 +47,16 @@ function Register(props) {
                         className="register__input register__input_type_name"
                         type="text"
                         name="name"
-                        placeholder='Павел'
+                        placeholder='Введите имя'
                         minLength="2"
                         maxLength="40"
                         required
+                        error={error.name}
                         onChange={handleChandge}
                         value={registerData.name}
+                        pattern="^[A-ZА-ЯЁa-zа-яё  -]+$"
                     />
-                    <span className="register__error type-name-error"></span>
+                    <span className="register__error type-name-error">{error.name}</span>
                 </div>
                 <div className='register__input-email-block'>
                     <p className='register__input-name-field'>Email</p>
@@ -59,7 +65,7 @@ function Register(props) {
                         className="register__input register__input_type_email"
                         type="email"
                         name="email"
-                        placeholder="Email"
+                        placeholder="Введите Email"
                         minLength="7"
                         maxLength="40"
                         error={error.email}
@@ -86,11 +92,14 @@ function Register(props) {
                     />
                     <span className="register__error" id="type-password-error">{error.password}</span>
                 </div>
-            </form>
-            <div className='register__buttons'>
-                <button className={`login__button-reg ${!valid ? 'login__button-reg_disable' : ''}`}>
+                <button 
+                className={`login__button-reg ${!valid ? 'login__button-reg_disable' : ''}`}
+                type='submit'
+                >
                     Зарегистрироваться
                 </button>
+            </form>
+            <div className='register__buttons'>
                 <button className='register__link-signin'>
                     Уже зарегистрированы? 
                     <Link to="/signin" className="register__link">Войти</Link>

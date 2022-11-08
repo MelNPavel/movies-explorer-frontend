@@ -46,8 +46,8 @@ function Header (props) {
                 <header className="header">
                     <Link to="/" target="_blank" rel="noreferrer"><img className="header__logo"  alt="Логотип" src={logo} /></Link>
                     <nav className='header__auth-area-main'>
-                        <Link to="/signup" className="header__link-main" target="_blank" rel="noreferrer">Регистрация</Link>
-                        <Link to="/signin" className="header__link-main" target="_blank" rel="noreferrer">Войти</Link>
+                        <Link to="/signup" className="header__link-main"  rel="noreferrer">Регистрация</Link>
+                        <Link to="/signin" className="header__link-main"  rel="noreferrer">Войти</Link>
                     </nav>
                 </header>
             </Route>
