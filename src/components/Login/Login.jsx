@@ -34,7 +34,7 @@ function Login (props) {
     return(
         <div className="login">
             <h2 className='login__title'>Рады видеть!</h2>
-            <form className='login__form' onSubmit={handleSubmit}>
+            <form className='login__form' onSubmit={handleSubmit} id="myform">
                 <div className='login__input-email-block'>
                     <p className='login__input-name-field'>Email</p>
                     <input
@@ -69,14 +69,14 @@ function Login (props) {
                     />
                     <span className="login__error" id="type-password-error">{error.password}</span>
                 </div>
+            </form>
+            <div className='login__buttons'>
                 <button
                 className= {`login__button-reg ${!valid ? 'login__button-reg_disable' : ''}`}
-                type='submit'
+                form="myform"
                 >
                     Войти
                 </button>
-            </form>
-            <div className='login__buttons'>
                 <button className='login__link-signin'>
                     Еще не зарегистрированы? 
                     <Link to="/signup" className="login__link">Зарегистрироваться</Link>

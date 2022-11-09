@@ -41,23 +41,25 @@ function Profile (props) {
     return(
         <div className="profile">
             <h2 className='profile__title'>Привет {currentUser.name}!</h2>
-            <form className='profile__form' onSubmit={handleSubmit}>
-                <div className='profile__input-name-block'>
-                    <p className='profile__input-name-field'>Имя</p>
-                    <input
-                        id="type-name"
-                        className="profile__input profile__input_type_name"
-                        type="text"
-                        name="name"
-                        placeholder='Введите имя'
-                        minLength="2"
-                        maxLength="40"
-                        required
-                        error={errorName}
-                        onChange={handleChandgeName}
-                        value={name}
-                        pattern="^[A-ZА-ЯЁa-zа-яё  -]+$"
-                    />
+            <form className='profile__form' onSubmit={handleSubmit} id="myform">
+                <div className='profile__input-name'>
+                    <div className='profile__input-name-block'>
+                        <p className='profile__input-name-field'>Имя</p>
+                        <input
+                            id="type-name"
+                            className="profile__input profile__input_type_name"
+                            type="text"
+                            name="name"
+                            placeholder='Введите имя'
+                            minLength="2"
+                            maxLength="40"
+                            required
+                            error={errorName}
+                            onChange={handleChandgeName}
+                            value={name}
+                            pattern="^[A-ZА-ЯЁa-zа-яё  -]+$"
+                        />
+                    </div>
                     <span className="profile__error type-name-error">{errorName}</span>
                 </div>
                 <div className='profile__input-email-block'>
@@ -78,14 +80,14 @@ function Profile (props) {
                     />
                 </div>
                     <span className="profile__error" id="type-email-error">{errorEmail}</span>
+            </form>
+            <div className='profile__buttons'>
                 <button
                 className= {`profile__button-edit ${!valid ? 'profile__button-edit_disable' : ''}`}
-                type= 'submit'
+                form="myform"
                 >
                     Редактировать
                 </button>
-            </form>
-            <div className='profile__buttons'>
             <button className='profile__onlogout' onClick={props.onlogOut}>
                 Выйти из акаунта
             </button>

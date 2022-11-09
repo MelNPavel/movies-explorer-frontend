@@ -5,6 +5,7 @@ import './Navigation.css';
 // import logo from '../../images/logo.svg';
 
 function Navigation() {
+    
     return (
     <div className="hamburger-menu">
         <input id="menu__toggle" type="checkbox" />
@@ -13,10 +14,10 @@ function Navigation() {
         </label>
 
         <ul className="menu__box">
-            <li className='menu__box-item'><Link to="/" className="menu__item" target="_blank" rel="noreferrer">Главная</Link></li>
-            <li className='menu__box-item'><Link to="/movies" className="menu__item" target="_blank" rel="noreferrer">Фильмы</Link></li>
-            <li className='menu__box-item'><Link to="/saved-movies"className="menu__item" href="#" target="_blank" rel="noreferrer">Сохраненные фильмы</Link></li>
-            <li className='menu__box-item'><Link to="/profile"className="menu__item" href="#" target="_blank" rel="noreferrer">Аккаунт</Link></li>
+            <li className='menu__box-item'><Link to="/" className="menu__item" rel="noreferrer">Главная</Link></li>
+            <li className='menu__box-item'><Link to="/movies" className="menu__item" rel="noreferrer">Фильмы</Link></li>
+            <li className='menu__box-item'><Link to="/saved-movies" className="menu__item" rel="noreferrer">Сохраненные фильмы</Link></li>
+            <li className='menu__box-item'><Link to="/profile" className="menu__item" rel="noreferrer">Аккаунт</Link></li>
         </ul>
     </div>
     )

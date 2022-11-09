@@ -39,7 +39,7 @@ function Register(props) {
     return(
         <div className="register">
             <h2 className='register__title'>Добро пожаловать!</h2>
-            <form className='register__form' onSubmit={handleSubmit}>
+            <form className='register__form' onSubmit={handleSubmit} id="myform">
                 <div className='register__input-name-block'>
                     <p className='register__input-name-field'>Имя</p>
                     <input
@@ -92,14 +92,14 @@ function Register(props) {
                     />
                     <span className="register__error" id="type-password-error">{error.password}</span>
                 </div>
+            </form>
+            <div className='register__buttons'>
                 <button 
                 className={`login__button-reg ${!valid ? 'login__button-reg_disable' : ''}`}
-                type='submit'
+                form="myform"
                 >
                     Зарегистрироваться
                 </button>
-            </form>
-            <div className='register__buttons'>
                 <button className='register__link-signin'>
                     Уже зарегистрированы? 
                     <Link to="/signin" className="register__link">Войти</Link>
