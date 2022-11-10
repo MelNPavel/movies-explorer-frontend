@@ -3,7 +3,8 @@ import React, { useState, useEffect,use } from 'react';
 import { Switch, Route, useHistory } from "react-router-dom";
 import ProtectedRoute from '../../utils/ProtectedRoute.jsx';
 import './App.css';
-import api from '../../utils/api.jsx'
+import api from '../../utils/MainApi.jsx'
+import moviesApi from '../../utils/MoviesApi.jsx';
 import Header from '../Header/Header.jsx';
 import Main from '../Main/Main.jsx';
 import Footer from '../Footer/Footer.jsx';
@@ -13,17 +14,14 @@ import Profile from '../Profile/Profile.jsx';
 import Register from '../Register/Register.jsx';
 import Login from '../Login/Login.jsx';
 import ErrorPage from '../ErrorPage/ErrorPage.jsx';
-import { registration, authorize, getContent, logout } from "../../utils/Auth.jsx";
-
-
 
 function App() {
     const [currentUser, setcurrentUser] = useState(null);
     const [loggedIn, setLoggedIn] = useState(false);
-
     const [infoTooltip, setInfoTooltip] = useState(false);
     const history = useHistory();
     const [email, setEmail] = useState("");
+    const [cards, setCards] = useState([]);
 
 //первоначальная загрузка пользователя
 useEffect(() => {
@@ -38,7 +36,7 @@ useEffect(() => {
 
  //Если есть токен заходи
  const tokenCheck = () => {
-    getContent()
+    api.getContent()
         .then((res) => {
             setLoggedIn(true);
             console.log(res);
@@ -49,7 +47,7 @@ useEffect(() => {
 
 //Регистрация
 const handleRegister = (data) => {
-    registration(data.name, data.email, data.password)
+    api.registration(data.name, data.email, data.password)
         .then((res) => {
             setcurrentUser(res)
             setLoggedIn(true);
@@ -76,7 +74,7 @@ const handleEditProfile = (data) => {
 
 //Вход через логин
 const handleLogin = (data) => {
-    authorize(data.email, data.password)
+    api.authorize(data.email, data.password)
         .then((res) => {
             setLoggedIn(true);
             history.push ('/movies');
@@ -89,7 +87,7 @@ const handleLogin = (data) => {
 
 //Выход
 const onlogOut = () => {
-    logout()
+    api.logout()
         .then(() => {
             setLoggedIn(false);
             history.push ('/');
@@ -102,6 +100,19 @@ const onlogOut = () => {
 useEffect(()=>{
     tokenCheck();
  }, [loggedIn]);
+
+  //Загрузка карточек первоначальная
+  useEffect(() => {
+    if (loggedIn){
+    moviesApi.getTasksCards()
+        .then(res => {
+            setCards(res)
+        })
+        .catch((err) => {
+            console.log ('Ошибка' + err);
+        })
+}}, [loggedIn])
+
 
 
     return (
@@ -116,6 +127,7 @@ useEffect(()=>{
                         exact path="/movies"
                         loggedIn={loggedIn}
                         component={Movies}
+                        cards={cards}
                     />
 
                     <ProtectedRoute

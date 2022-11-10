@@ -1,5 +1,11 @@
-const baseUrl = '//localhost:4000';
 const myJwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmY0MTUyMTYzOTBhNDAwMTQ2OTYxMDkiLCJpYXQiOjE2NjAxNjM1MDN9.nMr1EsDiPO1LmmC1oksqDJ3elyXwpbkbU7NEKQBeuH4";
+
+const configApiMovies = {
+  baseUrl: '//https://api.nomoreparties.co/beatfilm-movies',
+  headers: {    
+    'Content-Type': 'application/json'
+  },
+};
 
 const configApi = {
   baseUrl: '//localhost:4000',
@@ -23,6 +29,6 @@ export {
     userName,
     userAbout,
     userData,
-    baseUrl,
     myJwt,
+    configApiMovies,
 }

@@ -4,14 +4,14 @@ import MoviesCard from '../MoviesCard/MoviesCard.jsx';
 import './MoviesCardList.css';
 
 
-function MoviesCardList ({moviesCard, moreButtonVisibility}) {
+function MoviesCardList ({cards, moreButtonVisibility}) {
     return(
         <section className='movies-list'>
             <ul className='movies-list__card'>
-                { moviesCard.map(card => 
+                { cards.map(card => 
                 <MoviesCard 
-                    card={card}
-                    key= {card.id} 
+                    card={cards}
+                    key= {cards.id} 
                 />)}
             </ul>
             <div className='movies-list__more'>
