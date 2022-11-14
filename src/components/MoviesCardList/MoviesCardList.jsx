@@ -4,15 +4,17 @@ import MoviesCard from '../MoviesCard/MoviesCard.jsx';
 import './MoviesCardList.css';
 
 
-function MoviesCardList ({cards, moreButtonVisibility}) {
+function MoviesCardList ({cards, moreButtonVisibility, likeFlag}) {
     return(
         <section className='movies-list'>
             <ul className='movies-list__card'>
-                { cards.map(card => 
-                <MoviesCard 
-                    card={cards}
-                    key= {cards.id} 
-                />)}
+                {cards.map( card => (
+                    <MoviesCard 
+                    card={card} 
+                    key= {card.id} 
+                    likeFlag={likeFlag}
+                    />))
+                }
             </ul>
             <div className='movies-list__more'>
                 <button className={`movies-list__more-button ${moreButtonVisibility ? 'movies-list__more-button-visibility' : ''}`} type='button'>

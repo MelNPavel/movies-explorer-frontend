@@ -4,7 +4,7 @@ import { Switch, Route, useHistory } from "react-router-dom";
 import ProtectedRoute from '../../utils/ProtectedRoute.jsx';
 import './App.css';
 import api from '../../utils/MainApi.jsx'
-import moviesApi from '../../utils/MoviesApi.jsx';
+// import moviesApi from '../../utils/MoviesApi.jsx';
 import Header from '../Header/Header.jsx';
 import Main from '../Main/Main.jsx';
 import Footer from '../Footer/Footer.jsx';
@@ -21,7 +21,7 @@ function App() {
     const [infoTooltip, setInfoTooltip] = useState(false);
     const history = useHistory();
     const [email, setEmail] = useState("");
-    const [cards, setCards] = useState([]);
+    // const [cards, setCards] = useState([]);
 
 //первоначальная загрузка пользователя
 useEffect(() => {
@@ -39,7 +39,6 @@ useEffect(() => {
     api.getContent()
         .then((res) => {
             setLoggedIn(true);
-            console.log(res);
             history.push ('/movies');
         })
         .catch((err) => console.log(err));
@@ -101,19 +100,6 @@ useEffect(()=>{
     tokenCheck();
  }, [loggedIn]);
 
-  //Загрузка карточек первоначальная
-  useEffect(() => {
-    if (loggedIn){
-    moviesApi.getTasksCards()
-        .then(res => {
-            setCards(res)
-        })
-        .catch((err) => {
-            console.log ('Ошибка' + err);
-        })
-}}, [loggedIn])
-
-
 
     return (
         <CurrentUserContext.Provider value={currentUser}>
@@ -127,7 +113,6 @@ useEffect(()=>{
                         exact path="/movies"
                         loggedIn={loggedIn}
                         component={Movies}
-                        cards={cards}
                     />
 
                     <ProtectedRoute

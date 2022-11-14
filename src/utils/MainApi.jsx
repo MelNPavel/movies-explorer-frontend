@@ -1,4 +1,4 @@
-import {configApi} from "./constants.jsx"
+import {configApiMain} from "./constants.jsx"
 import { baseUrl } from "./constants.jsx";
 
 class Api{
@@ -84,8 +84,8 @@ _checkResponse(res) {
 };
 
 const api = new Api ({
-    url: configApi.baseUrl,
-    headers: configApi.headers
+    url: configApiMain.baseUrl,
+    headers: configApiMain.headers
   }
 );
 
