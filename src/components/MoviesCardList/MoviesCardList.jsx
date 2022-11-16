@@ -4,7 +4,7 @@ import MoviesCard from '../MoviesCard/MoviesCard.jsx';
 import './MoviesCardList.css';
 
 
-function MoviesCardList ({cards, moreButtonVisibility, likeFlag, likePut, likeUnPut, saveMovie}) {
+function MoviesCardList ({cards, moreButtonVisibility, likeFlag, likePut, likeUnPut, saveMovie, pageSaveMovie}) {
     return(
         <section className='movies-list'>
             <ul className='movies-list__card'>
@@ -12,7 +12,7 @@ function MoviesCardList ({cards, moreButtonVisibility, likeFlag, likePut, likeUn
                     <MoviesCard 
                     card={card} 
                     key= {card.id || card.movieId} 
-                    likeFlag={likeFlag}
+                    pageSaveMovie={pageSaveMovie}
                     likePut={likePut}
                     likeUnPut={likeUnPut}
                     saveMovie={saveMovie}

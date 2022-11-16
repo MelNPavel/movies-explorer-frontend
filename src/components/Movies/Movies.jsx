@@ -6,9 +6,9 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList.jsx';
 import './Movies.css';
 import moviesApi from '../../utils/MoviesApi.jsx';
 import ErrorMeasageMovies from '../ErrorMeasageMovies/ErrorMeasageMovies.jsx';
-import {configApiMovies} from '../../utils/constants.jsx'
+import {filterSearch, shortFiterFilms} from  '../../utils/utils.jsx';
 
-function Movies ({theLike, likePut, likeUnPut, likeFlag, savedMovies}) {
+function Movies ({likePut, likeUnPut, likeFlag, saveMovie}) {
     const [load, setLoad] = useState(false);
     const [searchFilmQuery, setSearchFilmQuery] = useState('');
     const [shortFilmCheck, setShortFilmCheck] = useState(false);
@@ -48,15 +48,6 @@ function Movies ({theLike, likePut, likeUnPut, likeFlag, savedMovies}) {
             setErrorFormMessage('Нужно ввести ключевое слово');
         }
     }
-    
-    
-    const filterSearch = (cards, searchFilmQuery) => {
-        return cards.filter(item => item.nameRU.toLowerCase().includes(searchFilmQuery.toLowerCase()));
-    }
-
-    const shortFiterFilms = (spisokFilmov) =>{
-        return spisokFilmov.filter(item => item.duration < 40);
-    }
 
     const listMoviesCards = (cards, searchFilmQuery, shortFilmCheck) => {
         const spisokFilmov = filterSearch(cards, searchFilmQuery);
@@ -80,7 +71,7 @@ function Movies ({theLike, likePut, likeUnPut, likeFlag, savedMovies}) {
                             likeFlag={likeFlag}
                             likePut={likePut}
                             likeUnPut={likeUnPut}
-                            savedMovies={savedMovies}
+                            saveMovie={saveMovie}
                         />
             :<ErrorMeasageMovies handleError = {errorsSearchMovies}/>
             }

@@ -3,7 +3,7 @@ import flag from '../../images/flag.svg';
 import './MoviesCard.css';
 import { configApiMovies } from '../../utils/constants.jsx';
 
-function MoviesCard ({card, likeFlag, likePut, likeUnPut, saveMovie}) {
+function MoviesCard ({card, likeFlag, likePut, likeUnPut, saveMovie, pageSaveMovie}) {
 
     const durationOnHour = (card) => {
         const minutes = card.duration
@@ -15,12 +15,12 @@ function MoviesCard ({card, likeFlag, likePut, likeUnPut, saveMovie}) {
     const duration = durationOnHour(card);
 
     const cardLikeButtonClassName = (
-        `movies-card__flag ${likeFlag ? 'movies-card__flag_green': ''}`
+        `movies-card__flag ${pageSaveMovie ? 'movies-card__flag_green': ''}`
     ); 
 
     const handleLike = (e) => {
         e.preventDefault();
-        if (saveMovie){
+        if (pageSaveMovie){
             likeUnPut(card);
         }else{
             likePut(card);
@@ -42,7 +42,7 @@ function MoviesCard ({card, likeFlag, likePut, likeUnPut, saveMovie}) {
                     <img className='movies-card__flag-icon' src={flag} alt='флаг лайка' />
                 </button>
             </div>
-            <img className='movies-card__image' src={ !saveMovie ? `${configApiMovies.baseUrl}${card.image.url}`: saveMovie.image} alt={card.title} />
+            <img className='movies-card__image' src={ !pageSaveMovie ? `${configApiMovies.baseUrl}${card.image.url}` : card.image} alt={card.title} />
         </li>
     )
 };

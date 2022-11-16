@@ -137,9 +137,10 @@ const filterMovies = (saveMovie, id) =>{
 
 //удаление лайка
 const deleteSaveCard = (card) => {
-    api.deleteCard(card.id)
+    console.log(card._id);
+    api.deleteCard(card._id)
     .then(() => {
-        const massiveWithoutSaveMovies = filterMovies (saveMovie, card.id) 
+        const massiveWithoutSaveMovies = filterMovies (saveMovie, card._id); 
         setSaveMovie(massiveWithoutSaveMovies);
     })
     .catch((err) => {
@@ -172,7 +173,7 @@ useEffect(()=>{
                         component={Movies}
                         likePut={saveCardsMovie}
                         likeUnPut={deleteSaveCard}
-                        savedMovies={saveMovie}
+                        saveMovie={saveMovie}
                     />
 
                     <ProtectedRoute

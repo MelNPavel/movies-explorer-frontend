@@ -1,10 +1,11 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SearchForm from '../SearchForm/SearchForm.jsx';
 import MoviesCardList from '../MoviesCardList/MoviesCardList.jsx';
 import './SavedMovies.css';
 import Preloader from '../Preloader/Preloader.jsx';
 import ErrorMeasageMovies from '../ErrorMeasageMovies/ErrorMeasageMovies.jsx';
+import {filterSearch, shortFiterFilms} from  '../../utils/utils.jsx';
 
 function SavedMovies({saveMovie, likeUnPut}) {
     const [load, setLoad] = useState(false);
@@ -14,8 +15,9 @@ function SavedMovies({saveMovie, likeUnPut}) {
     const [errorsSearchMovies, setErrorsSearchMovies] = useState('');
     const [cards, setCards] = useState([]);
     const [filmsFilter, setfilmsFilter] = useState([]);
-
+    
     function handleFilmSearchSubmit(searchFilmQuery) {
+
         if(searchFilmQuery){
             setLoad(true);
             setSearchFilmQuery(searchFilmQuery); 
@@ -26,19 +28,16 @@ function SavedMovies({saveMovie, likeUnPut}) {
             setErrorFormMessage('Нужно ввести ключевое слово');
         }
     }
-    
-    const filterSearch = (cards, searchFilmQuery) => {
-        return cards.filter(item => item.nameRU.toLowerCase().includes(searchFilmQuery.toLowerCase()));
-    }
-
-    const shortFiterFilms = (spisokFilmov) =>{
-        return spisokFilmov.filter(item => item.duration < 40);
-    }
 
     const listMoviesCards = (cards, searchFilmQuery, shortFilmCheck) => {
         const spisokFilmov = filterSearch(cards, searchFilmQuery);
         setfilmsFilter( shortFilmCheck ? shortFiterFilms(spisokFilmov) : spisokFilmov);
     };
+
+    useEffect(()=>{
+        listMoviesCards (saveMovie, searchFilmQuery, shortFilmCheck)
+        }, [saveMovie, searchFilmQuery, shortFilmCheck])
+    console.log(filmsFilter);
 
     return(
         <section className="movies">
@@ -54,6 +53,7 @@ function SavedMovies({saveMovie, likeUnPut}) {
                             cards={filmsFilter}
                             likeUnPut={likeUnPut}
                             saveMovie={saveMovie}
+                            pageSaveMovie = {true}
                             moreButtonVisibility = {false}
                         />
                         : <ErrorMeasageMovies handleError = {errorsSearchMovies}/>
