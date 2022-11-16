@@ -63,9 +63,34 @@ logout() {
   .then(res => this._checkResponse(res));
 };
 
+getSaveCards() {
+  return fetch (`${this.url}/movies`, {
+      credentials: 'include',
+      headers: this.headers
+  })
+  .then(this._checkResponse)
+};
 
+addCard(data) {
+  console.log(data)
+  return fetch (`${this.url}/movies`, {
+      credentials: 'include',
+      method: 'POST',
+      headers: this.headers,
+      body: JSON.stringify(data)
+      }
+  )
+  .then(this._checkResponse)
+};
 
-
+deleteCard(cardId) {
+  return fetch (`${this.url}/movies/${cardId}`,{
+      credentials: 'include',
+      method: 'DELETE',
+      headers: this.headers,
+  })
+  .then(this._checkResponse)
+};
 
 
 

@@ -5,9 +5,10 @@ import Preloader from '../Preloader/Preloader.jsx';
 import MoviesCardList from '../MoviesCardList/MoviesCardList.jsx';
 import './Movies.css';
 import moviesApi from '../../utils/MoviesApi.jsx';
-import 
+import ErrorMeasageMovies from '../ErrorMeasageMovies/ErrorMeasageMovies.jsx';
+import {configApiMovies} from '../../utils/constants.jsx'
 
-function Movies ({loggedIn}) {
+function Movies ({theLike, likePut, likeUnPut, likeFlag, savedMovies}) {
     const [load, setLoad] = useState(false);
     const [searchFilmQuery, setSearchFilmQuery] = useState('');
     const [shortFilmCheck, setShortFilmCheck] = useState(false);
@@ -16,7 +17,6 @@ function Movies ({loggedIn}) {
     const [cards, setCards] = useState([]);
     const [filmsFilter, setfilmsFilter] = useState([]);
     const [moreButtonVisibility, setMoreButtonVisibility] = useState(false);
-    const [likeFlag, setLikeFlag] = useState(true)
 
     function handleFilmSearchSubmit(searchFilmQuery) {
         if(searchFilmQuery){
@@ -27,11 +27,11 @@ function Movies ({loggedIn}) {
             
             if (!localStorage.getItem('cardsMovies')) {
                 moviesApi.getMoviesCards()
-                .then((res) => {
-                    localStorage.setItem('cardsMovies', JSON.stringify([res]));
-                    setCards([res]);
-                    listMoviesCards(cards, searchFilmQuery, shortFilmCheck);
+                .then((data) => {
+                    setCards([data]);
                     setMoreButtonVisibility(true);
+                    listMoviesCards(cards, searchFilmQuery, shortFilmCheck);
+                    localStorage.setItem('cardsMovies', JSON.stringify([data]));
                 })                
                 .catch((err) => {
                     setLoad(false);
@@ -63,23 +63,25 @@ function Movies ({loggedIn}) {
         setfilmsFilter( shortFilmCheck ? shortFiterFilms(spisokFilmov) : spisokFilmov);
     };
 
-    console.log(filmsFilter);
-
     return(
         <section className="movies">
             <SearchForm 
-            filmSearchSubmit={handleFilmSearchSubmit}
-            shortFilmCheck={shortFilmCheck}
-            setShortFilmCheck={setShortFilmCheck}
+                filmSearchSubmit={handleFilmSearchSubmit}
+                shortFilmCheck={shortFilmCheck}
+                setShortFilmCheck={setShortFilmCheck}
             />
 
-            { load ? 
-            <Preloader /> 
-            :<MoviesCardList
-            cards={filmsFilter}
-            moreButtonVisibility = {moreButtonVisibility}
-            likeFlag={likeFlag ? likePut : likeUnPut} 
-            />
+            { load 
+                ?<Preloader />
+                    : filmsFilter.length
+                        ?<MoviesCardList
+                            cards={filmsFilter}
+                            moreButtonVisibility = {moreButtonVisibility}
+                            likeFlag={likeFlag}
+                            likePut={likePut}
+                            likeUnPut={likeUnPut}
+                            savedMovies={savedMovies}
+                        />
             :<ErrorMeasageMovies handleError = {errorsSearchMovies}/>
             }
         </section>

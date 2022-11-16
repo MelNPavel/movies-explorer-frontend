@@ -4,15 +4,18 @@ import MoviesCard from '../MoviesCard/MoviesCard.jsx';
 import './MoviesCardList.css';
 
 
-function MoviesCardList ({cards, moreButtonVisibility, likeFlag}) {
+function MoviesCardList ({cards, moreButtonVisibility, likeFlag, likePut, likeUnPut, saveMovie}) {
     return(
         <section className='movies-list'>
             <ul className='movies-list__card'>
                 {cards.map( card => (
                     <MoviesCard 
                     card={card} 
-                    key= {card.id} 
+                    key= {card.id || card.movieId} 
                     likeFlag={likeFlag}
+                    likePut={likePut}
+                    likeUnPut={likeUnPut}
+                    saveMovie={saveMovie}
                     />))
                 }
             </ul>

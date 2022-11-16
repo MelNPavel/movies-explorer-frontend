@@ -2,9 +2,8 @@ import React from 'react';
 import flag from '../../images/flag.svg';
 import './MoviesCard.css';
 import { configApiMovies } from '../../utils/constants.jsx';
-import SavedMovies from '../SavedMovies/SavedMovies';
 
-function MoviesCard ({card, likeFlag}) {
+function MoviesCard ({card, likeFlag, likePut, likeUnPut, saveMovie}) {
 
     const durationOnHour = (card) => {
         const minutes = card.duration
@@ -19,7 +18,13 @@ function MoviesCard ({card, likeFlag}) {
         `movies-card__flag ${likeFlag ? 'movies-card__flag_green': ''}`
     ); 
 
-    const addSavedMovies = () => {
+    const handleLike = (e) => {
+        e.preventDefault();
+        if (saveMovie){
+            likeUnPut(card);
+        }else{
+            likePut(card);
+        }
 
     }
 
@@ -32,12 +37,12 @@ function MoviesCard ({card, likeFlag}) {
                 </ul>
                 <button 
                 className={cardLikeButtonClassName} 
-                onClick={addSavedMovies} 
+                onClick={handleLike} 
                 type='button'>
                     <img className='movies-card__flag-icon' src={flag} alt='флаг лайка' />
                 </button>
             </div>
-            <img className='movies-card__image' src={ `${configApiMovies.baseUrl}${card.image.url}`} alt={card.title} />
+            <img className='movies-card__image' src={ !saveMovie ? `${configApiMovies.baseUrl}${card.image.url}`: saveMovie.image} alt={card.title} />
         </li>
     )
 };

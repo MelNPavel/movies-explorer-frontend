@@ -14,6 +14,7 @@ import Profile from '../Profile/Profile.jsx';
 import Register from '../Register/Register.jsx';
 import Login from '../Login/Login.jsx';
 import ErrorPage from '../ErrorPage/ErrorPage.jsx';
+import {configApiMovies} from '../../utils/constants.jsx'
 
 function App() {
     const [currentUser, setcurrentUser] = useState(null);
@@ -22,6 +23,9 @@ function App() {
     const history = useHistory();
     const [email, setEmail] = useState("");
     // const [cards, setCards] = useState([]);
+    const [saveMovie, setSaveMovie] = useState([]);
+
+   
 
 //первоначальная загрузка пользователя
 useEffect(() => {
@@ -101,6 +105,59 @@ useEffect(()=>{
  }, [loggedIn]);
 
 
+const cardData = (card) => {
+    const { country, director, duration, year, description,  trailerLink, nameRU, nameEN, id, } = card;
+
+  return {
+    country, director, duration, year, description, trailerLink, nameRU, nameEN, 
+    movieId:id,
+    image: `${configApiMovies.baseUrl}${card.image.url}`,
+    thumbnail: `${configApiMovies.baseUrl}${card.image.formats.thumbnail.url}`,
+    };
+};
+
+
+//добавление лайка
+const saveCardsMovie = (card) => {
+    const cardDataMovies = cardData(card);
+    console.log(cardDataMovies);
+    api.addCard(cardDataMovies)
+    .then(input => {
+        setSaveMovie([input, ...saveMovie]);
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+}
+
+//массив карточек без лайков 
+const filterMovies = (saveMovie, id) =>{
+    return saveMovie.filter(item => item._id !== id);
+}
+
+//удаление лайка
+const deleteSaveCard = (card) => {
+    api.deleteCard(card.id)
+    .then(() => {
+        const massiveWithoutSaveMovies = filterMovies (saveMovie, card.id) 
+        setSaveMovie(massiveWithoutSaveMovies);
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+}
+
+useEffect(()=>{
+    api.getSaveCards()
+    .then((data) => {
+        setSaveMovie(data);
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+ }, [loggedIn]);
+
+
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="app">
@@ -113,12 +170,17 @@ useEffect(()=>{
                         exact path="/movies"
                         loggedIn={loggedIn}
                         component={Movies}
+                        likePut={saveCardsMovie}
+                        likeUnPut={deleteSaveCard}
+                        savedMovies={saveMovie}
                     />
 
                     <ProtectedRoute
                         exact path="/saved-movies"
                         loggedIn={loggedIn}
                         component={SavedMovies}
+                        likeUnPut={deleteSaveCard}
+                        saveMovie={saveMovie}
                     />
 
                     <ProtectedRoute

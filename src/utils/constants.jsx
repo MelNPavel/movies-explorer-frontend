@@ -8,7 +8,7 @@ const configApiMain = {
 };
 
 const configApiMovies = {
-  baseUrl: 'https://api.nomoreparties.co/',
+  baseUrl: 'https://api.nomoreparties.co',
   headers: {    
     'Content-Type': 'application/json'
   },
