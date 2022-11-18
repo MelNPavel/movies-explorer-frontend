@@ -11,22 +11,34 @@ function MoviesCard ({card, likeFlag, likePut, likeUnPut, saveMovie, pageSaveMov
         const hours = Math.floor(minutes / 60)
         return `${hours}ч ${realmin}мин`;
     }
+    
+    const findCard = (cardMovie, massiveSaveMovie) => {
+        return massiveSaveMovie.find(item => 
+            item.movieId === cardMovie.id)
+    }
+
+    const findCardMoovie = findCard(card, saveMovie)
+    
+    
 
     const duration = durationOnHour(card);
 
     const cardLikeButtonClassName = (
-        `movies-card__flag ${pageSaveMovie ? 'movies-card__flag_green': ''}`
+        `movies-card__flag ${pageSaveMovie || findCardMoovie ? 'movies-card__flag_green': ''}`
     ); 
 
     const handleLike = (e) => {
         e.preventDefault();
-        if (pageSaveMovie){
-            likeUnPut(card);
+        if (findCardMoovie || pageSaveMovie){
+            likeUnPut(pageSaveMovie ? card : findCardMoovie);
         }else{
             likePut(card);
         }
 
     }
+
+    console.log(findCardMoovie);
+    console.log(card);
 
     return(
         <li className='movies-card'>
