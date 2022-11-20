@@ -4,7 +4,6 @@ import { Switch, Route, useHistory } from "react-router-dom";
 import ProtectedRoute from '../../utils/ProtectedRoute.jsx';
 import './App.css';
 import api from '../../utils/MainApi.jsx'
-// import moviesApi from '../../utils/MoviesApi.jsx';
 import Header from '../Header/Header.jsx';
 import Main from '../Main/Main.jsx';
 import Footer from '../Footer/Footer.jsx';
@@ -14,15 +13,15 @@ import Profile from '../Profile/Profile.jsx';
 import Register from '../Register/Register.jsx';
 import Login from '../Login/Login.jsx';
 import ErrorPage from '../ErrorPage/ErrorPage.jsx';
-import {configApiMovies} from '../../utils/constants.jsx'
+import { configApiMovies } from '../../utils/constants.jsx';
+import { filterMovieCardsUser } from '../../utils/utils.jsx';
 
 function App() {
-    const [currentUser, setcurrentUser] = useState(null);
+    const [currentUser, setcurrentUser] = useState({});
     const [loggedIn, setLoggedIn] = useState(false);
     const [infoTooltip, setInfoTooltip] = useState(false);
     const history = useHistory();
     const [email, setEmail] = useState("");
-    // const [cards, setCards] = useState([]);
     const [saveMovie, setSaveMovie] = useState([]);
 
    
@@ -151,12 +150,13 @@ const deleteSaveCard = (card) => {
 useEffect(()=>{
     api.getSaveCards()
     .then((data) => {
-        setSaveMovie(data);
+        const saveMovieFilterUser = filterMovieCardsUser(data, currentUser._id)
+        setSaveMovie(saveMovieFilterUser);
     })
     .catch((err) => {
         console.log(err)
     })
- }, [loggedIn]);
+ }, [loggedIn, currentUser]);
 
 
     return (

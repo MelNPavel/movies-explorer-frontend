@@ -131,6 +131,15 @@
   border-left: 1px solid #E8E8E8;
 }
 
+.search-input__error{
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12px;
+  text-align: left;
+  color: #EE3465;
+  height: 24px;
+}
+
 @media screen and (max-width: 768px){
     .search{
       padding-bottom: 120px;

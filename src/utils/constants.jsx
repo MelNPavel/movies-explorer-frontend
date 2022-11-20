@@ -14,20 +14,7 @@ const configApiMovies = {
   },
 };
 
-const userAvatar = '.profile__avatar'
-const userName ='.profile__info-name';
-const userAbout ='.profile__info-about';
-const userData = {
-  name: userName,
-  about: userAbout,
-  avatar: userAvatar
-};
-
 export {
-    userAvatar,
-    userName,
-    userAbout,
-    userData,
     myJwt,
     configApiMovies,
     configApiMain

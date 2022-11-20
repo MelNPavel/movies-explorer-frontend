@@ -3,7 +3,7 @@ import magnifier from '../../images/magnifier.svg';
 import searchButton from '../../images/searchButton.svg';
 import './SearchForm.css';
 
-function SearchForm ({filmSearchSubmit, shortFilmCheck, setShortFilmCheck}) {
+function SearchForm ({filmSearchSubmit, shortFilmCheck, setShortFilmCheck, errorFormMessage}) {
 
     const [error, setError] = useState([]);
     const [valid, setValid] = useState([]);
@@ -42,9 +42,8 @@ function SearchForm ({filmSearchSubmit, shortFilmCheck, setShortFilmCheck}) {
                         onChange={handleChandge}
                         placeholder='Фильм'
                         required
-                        error={error.search}
+                        noValidate
                         />
-                        <span className="login__error" id="type-password-error">{error.search}</span>
                     </div>
                     <button className='search__button' type="submit" form="myform"> 
                         <img src={searchButton} alt='кнопка начала поиска'/>
@@ -64,6 +63,7 @@ function SearchForm ({filmSearchSubmit, shortFilmCheck, setShortFilmCheck}) {
                     
                 </div>
             </form>
+                <p className="search-input__error" id='search'>{errorFormMessage}</p>
         </div>
     )
 };

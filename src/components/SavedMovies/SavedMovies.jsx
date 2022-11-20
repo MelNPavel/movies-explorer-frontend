@@ -45,6 +45,7 @@ function SavedMovies({saveMovie, likeUnPut}) {
                 filmSearchSubmit={handleFilmSearchSubmit}
                 shortFilmCheck={shortFilmCheck}
                 setShortFilmCheck={setShortFilmCheck}
+                errorFormMessage={errorFormMessage}
             />
             { load 
                 ? <Preloader />

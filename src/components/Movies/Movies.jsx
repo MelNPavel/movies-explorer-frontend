@@ -60,6 +60,7 @@ function Movies ({likePut, likeUnPut, likeFlag, saveMovie}) {
                 filmSearchSubmit={handleFilmSearchSubmit}
                 shortFilmCheck={shortFilmCheck}
                 setShortFilmCheck={setShortFilmCheck}
+                errorFormMessage={errorFormMessage}
             />
 
             { load 
@@ -72,6 +73,7 @@ function Movies ({likePut, likeUnPut, likeFlag, saveMovie}) {
                             likePut={likePut}
                             likeUnPut={likeUnPut}
                             saveMovie={saveMovie}
+                            
                         />
             :<ErrorMeasageMovies handleError = {errorsSearchMovies}/>
             }

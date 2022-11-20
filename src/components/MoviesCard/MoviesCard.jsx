@@ -3,7 +3,7 @@ import flag from '../../images/flag.svg';
 import './MoviesCard.css';
 import { configApiMovies } from '../../utils/constants.jsx';
 
-function MoviesCard ({card, likeFlag, likePut, likeUnPut, saveMovie, pageSaveMovie}) {
+function MoviesCard ({card, likePut, likeUnPut, saveMovie, pageSaveMovie}) {
 
     const durationOnHour = (card) => {
         const minutes = card.duration
@@ -36,9 +36,6 @@ function MoviesCard ({card, likeFlag, likePut, likeUnPut, saveMovie, pageSaveMov
         }
 
     }
-
-    console.log(findCardMoovie);
-    console.log(card);
 
     return(
         <li className='movies-card'>
