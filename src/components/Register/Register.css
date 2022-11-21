@@ -75,7 +75,7 @@
     font-weight: 400;
     line-height: 12px;
     text-align: left;
-    color: #EE3465;
+    color: #FF6838;
     height: 24px;
  }
  
@@ -120,6 +120,15 @@
 }
 
  .register__link{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    color:#FF6838;
+    padding-left: 5px;
+}
+
+.register-input__error{
     font-size: 14px;
     font-weight: 400;
     line-height: 17px;

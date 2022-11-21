@@ -71,6 +71,7 @@ function Login (props) {
                 </div>
             </form>
             <div className='login__buttons'>
+                <span className="login-input__error">{props.regError}</span>
                 <button
                 className= {`login__button-reg ${!valid ? 'login__button-reg_disable' : ''}`}
                 form="myform"

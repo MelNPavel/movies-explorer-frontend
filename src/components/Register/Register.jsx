@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './Register.css';
 import { CurrentUserContext } from '../../context/CurrentUserContext.jsx';
 import { useEffect } from 'react';
+import {getErrorMessage} from '../../utils/utils.jsx'; 
 
 function Register(props) {
     const currentUser = React.useContext(CurrentUserContext);
@@ -94,6 +95,7 @@ function Register(props) {
                 </div>
             </form>
             <div className='register__buttons'>
+            <span className="register-input__error">{props.regError}</span>
                 <button 
                 className={`login__button-reg ${!valid ? 'login__button-reg_disable' : ''}`}
                 form="myform"

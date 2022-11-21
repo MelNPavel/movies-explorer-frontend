@@ -63,7 +63,7 @@
     font-weight: 400;
     line-height: 12px;
     text-align: left;
-    color: #EE3465;
+    color: #ff6838;
     height: 24px;
  }
  
@@ -136,6 +136,15 @@
 .login__input_type_password{
     display: flex;
      flex-direction: column;
+}
+
+.login-input__error{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    color:#FF6838;
+    padding-left: 5px;
 }
 
 @media screen and (max-width: 540px){

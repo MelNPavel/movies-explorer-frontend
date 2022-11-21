@@ -23,6 +23,7 @@ function App() {
     const history = useHistory();
     const [email, setEmail] = useState("");
     const [saveMovie, setSaveMovie] = useState([]);
+    const [regError, setRegError] = useState();
 
    
 
@@ -34,6 +35,7 @@ useEffect(() => {
         })
         .catch((err) => {
             console.log ('Ошибка' + err);
+            setRegError('Ошибка' + err);
         })
 }, [loggedIn])
 
@@ -44,7 +46,10 @@ useEffect(() => {
             setLoggedIn(true);
             history.push ('/movies');
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {console.log(err)
+            setRegError('Ошибка' + err.message);
+        });
+
 }
 
 //Регистрация
@@ -59,6 +64,7 @@ const handleRegister = (data) => {
             setInfoTooltip(true);
             setLoggedIn(false);
             console.log(err);
+            setRegError('Ошибка' + err);
             }
         );
 }
@@ -71,6 +77,7 @@ const handleEditProfile = (data) => {
         })
         .catch((err) => {
             console.log ('Ошибка' + err);
+            setRegError('Ошибка' + err);
         })
 }
 
@@ -84,6 +91,7 @@ const handleLogin = (data) => {
         .catch((err) => {
             setInfoTooltip(true);
             console.log(err)
+            setRegError('Ошибка' + err);
     });
 }
 
@@ -96,14 +104,11 @@ const onlogOut = () => {
         })
         .catch((err) => {
             console.log(err)
+            setRegError('Ошибка' + err);
         })
 }
 
-useEffect(()=>{
-    tokenCheck();
- }, [loggedIn]);
-
-
+//сопоставление полей
 const cardData = (card) => {
     const { country, director, duration, year, description,  trailerLink, nameRU, nameEN, id, } = card;
 
@@ -148,6 +153,10 @@ const deleteSaveCard = (card) => {
 }
 
 useEffect(()=>{
+    tokenCheck();
+ }, [loggedIn]);
+
+useEffect(()=>{
     api.getSaveCards()
     .then((data) => {
         const saveMovieFilterUser = filterMovieCardsUser(data, currentUser._id)
@@ -190,6 +199,7 @@ useEffect(()=>{
                         component={Profile}
                         onlogOut={onlogOut}
                         onUpdateAuth={handleEditProfile}
+                        regError={regError}
                     />
 
                     <Route exact path="/">
@@ -199,13 +209,15 @@ useEffect(()=>{
                     <Route path="/signup">
                         {loggedIn ? <Movies /> : <Register 
                         onUpdateAuth = {handleRegister}
+                        regError={regError}
                         />}
                     </Route>
 
                     <Route path="/signin">
                     {loggedIn ? <Movies /> : <Login 
                         onUpdateAuth={handleLogin}
-                            />
+                        regError={regError}
+                        />
                     }
                     </Route>
 

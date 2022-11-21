@@ -2,7 +2,6 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import SearchForm from '../SearchForm/SearchForm.jsx';
 import MoviesCardList from '../MoviesCardList/MoviesCardList.jsx';
-import './SavedMovies.css';
 import Preloader from '../Preloader/Preloader.jsx';
 import ErrorMeasageMovies from '../ErrorMeasageMovies/ErrorMeasageMovies.jsx';
 import {filterSearch, shortFiterFilms} from  '../../utils/utils.jsx';
@@ -37,7 +36,6 @@ function SavedMovies({saveMovie, likeUnPut}) {
     useEffect(()=>{
         listMoviesCards (saveMovie, searchFilmQuery, shortFilmCheck)
         }, [saveMovie, searchFilmQuery, shortFilmCheck])
-    console.log(filmsFilter);
 
     return(
         <section className="movies">

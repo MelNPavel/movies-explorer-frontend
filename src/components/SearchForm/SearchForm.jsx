@@ -1,4 +1,5 @@
 import React, { useState} from 'react';
+import { useEffect } from 'react';
 import magnifier from '../../images/magnifier.svg';
 import searchButton from '../../images/searchButton.svg';
 import './SearchForm.css';
@@ -28,9 +29,13 @@ function SearchForm ({filmSearchSubmit, shortFilmCheck, setShortFilmCheck, error
         filmSearchSubmit(filmSearch.film);
     }
 
+    // useEffect(()=>{
+    //     setError([errorFormMessage]);
+    // },[setError])
+
     return(
         <div className='search'>
-            <form className='search-form' onSubmit={handleSubmit} id="myform">
+            <form className='search-form' onSubmit={handleSubmit} id="myform" noValidate>
                 <div className='search__input-area'>
                     <div className='search__input'>
                         <img src={magnifier} className='search__magnifier' alt='поле поиска значек лупы'/>
@@ -42,8 +47,9 @@ function SearchForm ({filmSearchSubmit, shortFilmCheck, setShortFilmCheck, error
                         onChange={handleChandge}
                         placeholder='Фильм'
                         required
-                        noValidate
+                        error={errorFormMessage}
                         />
+                        
                     </div>
                     <button className='search__button' type="submit" form="myform"> 
                         <img src={searchButton} alt='кнопка начала поиска'/>
@@ -63,7 +69,8 @@ function SearchForm ({filmSearchSubmit, shortFilmCheck, setShortFilmCheck, error
                     
                 </div>
             </form>
-                <p className="search-input__error" id='search'>{errorFormMessage}</p>
+                <span className="search-input__error">{errorFormMessage}</span>
+                
         </div>
     )
 };

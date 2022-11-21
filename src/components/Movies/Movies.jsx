@@ -28,24 +28,29 @@ function Movies ({likePut, likeUnPut, likeFlag, saveMovie}) {
             if (!localStorage.getItem('cardsMovies')) {
                 moviesApi.getMoviesCards()
                 .then((data) => {
-                    setCards([data]);
+                    setCards(data);
                     setMoreButtonVisibility(true);
                     listMoviesCards(cards, searchFilmQuery, shortFilmCheck);
-                    localStorage.setItem('cardsMovies', JSON.stringify([data]));
+                    localStorage.setItem('cardsMovies', JSON.stringify(data));
+                    setErrorFormMessage('');
                 })                
                 .catch((err) => {
                     setLoad(false);
-                    setErrorsSearchMovies('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')}
+                    setErrorsSearchMovies('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
+                    setErrorFormMessage('');
+                }
                 );
             }else{
                 setLoad(false);
                 listMoviesCards(JSON.parse(localStorage.getItem('cardsMovies')), searchFilmQuery, shortFilmCheck)
                 setMoreButtonVisibility(true);
+                setErrorFormMessage('');
 
             }
         }else{
             setLoad(false);
             setErrorFormMessage('Нужно ввести ключевое слово');
+            setErrorsSearchMovies('');
         }
     }
 
@@ -64,18 +69,17 @@ function Movies ({likePut, likeUnPut, likeFlag, saveMovie}) {
             />
 
             { load 
-                ?<Preloader />
+                ? <Preloader />
                     : filmsFilter.length
-                        ?<MoviesCardList
+                        ? <MoviesCardList
                             cards={filmsFilter}
                             moreButtonVisibility = {moreButtonVisibility}
                             likeFlag={likeFlag}
                             likePut={likePut}
                             likeUnPut={likeUnPut}
                             saveMovie={saveMovie}
-                            
                         />
-            :<ErrorMeasageMovies handleError = {errorsSearchMovies}/>
+            : <ErrorMeasageMovies handleError = {errorsSearchMovies}/>
             }
         </section>
     )
