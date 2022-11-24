@@ -1,7 +1,6 @@
 import React from 'react';
 import './ErrorMeasageMovies.css';
 
-
 function ErrorMeasageMovies({handleError}) {
 
     return(
@@ -9,7 +8,6 @@ function ErrorMeasageMovies({handleError}) {
             <span className='error-measage-movies__input'>
                 {handleError}
             </span>
-
         </section>
     )
 };

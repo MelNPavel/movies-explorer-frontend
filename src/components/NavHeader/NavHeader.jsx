@@ -4,7 +4,7 @@ import './NavHeader.css';
 
 import logo from '../../images/logo.svg';
 
-function NavHeader ({loggedIn}) {
+function NavHeader () {
 
     return (
         <div className='nav-header'>

@@ -25,9 +25,7 @@ function App() {
     const [saveMovie, setSaveMovie] = useState([]);
     const [regError, setRegError] = useState();
 
-   
-
-//первоначальная загрузка пользователя
+    //первоначальная загрузка пользователя
 useEffect(() => {
     api.getUserInfo()
         .then((res) => {
@@ -49,7 +47,6 @@ useEffect(() => {
         .catch((err) => {console.log(err)
             setRegError(err);
         });
-
 }
 
 //Регистрация
@@ -120,7 +117,6 @@ const cardData = (card) => {
     };
 };
 
-
 //добавление лайка
 const saveCardsMovie = (card) => {
     const cardDataMovies = cardData(card);
@@ -166,7 +162,6 @@ useEffect(()=>{
         console.log(err)
     })
  }, [loggedIn, currentUser]);
-
 
     return (
         <CurrentUserContext.Provider value={currentUser}>

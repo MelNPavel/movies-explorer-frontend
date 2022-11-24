@@ -1,5 +1,4 @@
 import {configApiMain} from "../constants/constants.jsx"
-import { baseUrl } from "./constants.jsx";
 
 class Api{
     constructor ({url, headers}) {

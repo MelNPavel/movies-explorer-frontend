@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
 import './Header.css';
-
 import logo from '../../images/logo.svg';
 import Navigation from '../Navigation/Navigation';
 import NavHeader from '../NavHeader/NavHeader.jsx';
 import NavHeaderReg from '../NavHeaderReg/NavHeaderReg.jsx';
-import {useGetWidthWindow} from '../../utils/utils.jsx';
 
 function Header ({loggedIn}) {
     const points = [
@@ -14,8 +12,6 @@ function Header ({loggedIn}) {
         "/saved-movies/",
         "/profile"
     ]
-
-    const width = useGetWidthWindow();
 
     return (
         
