@@ -11,22 +11,22 @@ function Profile (props) {
 
     const currentUser = React.useContext(CurrentUserContext);
 
-    useEffect(() => {
-        if(currentUser) {
-        setName(currentUser.name);
-        setEmail(currentUser.email);
-    }}, [currentUser]); 
+    const writeButton = valid && (name !== currentUser.name || email !== currentUser.email);
 
     const handleChandgeName = (e) => {
         setName(e.target.value);
-        setErrorName(e.target.validationMessage)
-        setValid(e.target.closest('form').checkValidity() );
+        setErrorName(e.target.validationMessage);
+        if (writeButton){
+            setValid (e.target.closest('form').checkValidity() );
+        };
     };
 
     const handleChandgeEmail = (e) => {
         setEmail(e.target.value);
         setErrorEmail(e.target.validationMessage)
-        setValid (e.target.closest('form').checkValidity() );
+        if (writeButton){
+            setValid (e.target.closest('form').checkValidity() );
+        };
     };
 
     const handleSubmit = (e) => {
@@ -35,8 +35,14 @@ function Profile (props) {
             name,
             email
         });
-    }
-
+    };
+    
+    useEffect(() => {
+        setName(currentUser.name);
+        setEmail(currentUser.email);
+    }, [currentUser]);
+    
+    
 
     return(
         <div className="profile">
@@ -83,7 +89,7 @@ function Profile (props) {
             </form>
             <div className='profile__buttons'>
                 <button
-                className= {`profile__button-edit ${!valid ? 'profile__button-edit_disable' : ''}`}
+                className= {`profile__button-edit ${!writeButton ? 'profile__button-edit_disable' : ''}`}
                 form="myform"
                 >
                     Редактировать

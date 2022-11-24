@@ -101,10 +101,8 @@
     color: black;
 }
 
-@media screen and (min-width: 769px) {
-    .hamburger-menu {
-        display: none;
-    }
+.hamburger-menu__disable{
+    display: none;
 }
 
 @media screen and (max-width: 540px) {

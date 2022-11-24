@@ -35,7 +35,7 @@ useEffect(() => {
         })
         .catch((err) => {
             console.log ('Ошибка' + err);
-            setRegError('Ошибка' + err);
+            setRegError(err);
         })
 }, [loggedIn])
 
@@ -47,7 +47,7 @@ useEffect(() => {
             history.push ('/movies');
         })
         .catch((err) => {console.log(err)
-            setRegError('Ошибка' + err.message);
+            setRegError(err);
         });
 
 }
@@ -64,7 +64,7 @@ const handleRegister = (data) => {
             setInfoTooltip(true);
             setLoggedIn(false);
             console.log(err);
-            setRegError('Ошибка' + err);
+            setRegError(err);
             }
         );
 }
@@ -76,8 +76,8 @@ const handleEditProfile = (data) => {
             setcurrentUser(res)
         })
         .catch((err) => {
-            console.log ('Ошибка' + err);
-            setRegError('Ошибка' + err);
+            console.log (err);
+            setRegError(err);
         })
 }
 
@@ -91,7 +91,7 @@ const handleLogin = (data) => {
         .catch((err) => {
             setInfoTooltip(true);
             console.log(err)
-            setRegError('Ошибка' + err);
+            setRegError(err);
     });
 }
 
@@ -104,7 +104,7 @@ const onlogOut = () => {
         })
         .catch((err) => {
             console.log(err)
-            setRegError('Ошибка' + err);
+            setRegError(err);
         })
 }
 

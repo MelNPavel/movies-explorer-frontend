@@ -33,11 +33,9 @@
     background: #2BE080;
 }
 
-@media screen and (max-width: 769px) {
-    .nav-header-reg__link {
-      display: none;
-    }
-}
+.nav-header-reg__link_disable {
+    display: none;
+  }
 
 @media screen and (max-width: 768px){
     .nav-header-reg{

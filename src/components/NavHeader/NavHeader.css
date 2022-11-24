@@ -27,17 +27,17 @@
     background: #2BE080;
 }
 
-@media screen and (max-width: 769px) {
+/* @media screen and (max-width: 769px) {
     .nav-header-reg__link {
       display: none;
     }
-}
+} */
 
-@media screen and (max-width: 769px) {
+/* @media screen and (max-width: 769px) {
     .nav-header__link-main {
       display: none;
     }
-}
+} */
 
 @media screen and (max-width: 768px){
     .nav-header{

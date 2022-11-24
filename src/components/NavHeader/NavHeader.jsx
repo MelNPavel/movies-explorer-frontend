@@ -4,7 +4,8 @@ import './NavHeader.css';
 
 import logo from '../../images/logo.svg';
 
-function NavHeader (props) {
+function NavHeader ({loggedIn}) {
+
     return (
         <div className='nav-header'>
            <Link to="/" target="_blank" rel="noreferrer"><img className="header__logo"  alt="Логотип" src={logo} /></Link>

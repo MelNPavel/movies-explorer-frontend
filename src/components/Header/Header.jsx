@@ -6,20 +6,26 @@ import logo from '../../images/logo.svg';
 import Navigation from '../Navigation/Navigation';
 import NavHeader from '../NavHeader/NavHeader.jsx';
 import NavHeaderReg from '../NavHeaderReg/NavHeaderReg.jsx';
+import {useGetWidthWindow} from '../../utils/utils.jsx';
 
-function Header (props) {
+function Header ({loggedIn}) {
     const points = [
         "/movies",
         "/saved-movies/",
         "/profile"
     ]
+
+    const width = useGetWidthWindow();
+
     return (
         
         <Switch>
             
             <Route path={points}>
-                {props.loggedIn ? <NavHeaderReg /> : <NavHeader />}
-                <Navigation />
+                {loggedIn ? <NavHeaderReg /> : <NavHeader />}
+                <Navigation 
+                loggedIn={loggedIn}
+                />
             </Route>
             
             <Route path={"/signup"}>
@@ -38,11 +44,13 @@ function Header (props) {
                 </header>
             </Route>
 
-
             <Route path="/">
-                {props.loggedIn ? <NavHeaderReg /> : <NavHeader />}
+                
+                {loggedIn ? <NavHeaderReg /> : <NavHeader />}
                 <Navigation 
-                loggedIn={props.loggedIn }/>
+                loggedIn={loggedIn}
+                mainPage = {true}
+                />
             </Route>
             
         </Switch> 

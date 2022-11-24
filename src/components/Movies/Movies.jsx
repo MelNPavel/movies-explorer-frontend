@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SearchForm from '../SearchForm/SearchForm.jsx';
 import Preloader from '../Preloader/Preloader.jsx';
 import MoviesCardList from '../MoviesCardList/MoviesCardList.jsx';
@@ -58,6 +58,14 @@ function Movies ({likePut, likeUnPut, likeFlag, saveMovie}) {
         const spisokFilmov = filterSearch(cards, searchFilmQuery);
         setfilmsFilter( shortFilmCheck ? shortFiterFilms(spisokFilmov) : spisokFilmov);
     };
+
+    useEffect(()=>{
+        const foundCard = JSON.parse(localStorage.getItem('cardsMovies'));
+        const searchQuery = localStorage.getItem('searchFilmQuery');
+        if (foundCard && searchQuery) {
+            listMoviesCards(foundCard, searchQuery, shortFilmCheck);
+        }
+    }, [searchFilmQuery, shortFilmCheck]);
 
     return(
         <section className="movies">
