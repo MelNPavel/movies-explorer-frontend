@@ -1,4 +1,4 @@
-import {configApiMain} from "./constants.jsx"
+import {configApiMain} from "../constants/constants.jsx"
 import { baseUrl } from "./constants.jsx";
 
 class Api{

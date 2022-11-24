@@ -1,4 +1,4 @@
-import {configApiMovies} from "./constants.jsx"
+import {configApiMovies} from "../constants/constants.jsx"
 
 class Api{
     constructor ({url, headers}) {
