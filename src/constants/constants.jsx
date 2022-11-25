@@ -1,7 +1,7 @@
 const myJwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmY0MTUyMTYzOTBhNDAwMTQ2OTYxMDkiLCJpYXQiOjE2NjAxNjM1MDN9.nMr1EsDiPO1LmmC1oksqDJ3elyXwpbkbU7NEKQBeuH4";
 
 const configApiMain = {
-  baseUrl: 'http://localhost:4000',
+  baseUrl: 'https://api.movies-explorer-mpn.nomoredomains.icu',
   headers: {    
     'Content-Type': 'application/json'
   },
