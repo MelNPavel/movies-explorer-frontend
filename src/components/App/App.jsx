@@ -13,7 +13,7 @@ import Profile from '../Profile/Profile.jsx';
 import Register from '../Register/Register.jsx';
 import Login from '../Login/Login.jsx';
 import ErrorPage from '../ErrorPage/ErrorPage.jsx';
-import { configApiMovies } from '../../utils/constants.jsx';
+import { configApiMovies } from '../../constants/constants.jsx';
 import { filterMovieCardsUser } from '../../utils/utils.jsx';
 
 function App() {

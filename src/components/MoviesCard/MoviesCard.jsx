@@ -1,7 +1,7 @@
 import React from 'react';
 import flag from '../../images/flag.svg';
 import './MoviesCard.css';
-import { configApiMovies } from '../../utils/constants.jsx';
+import { configApiMovies } from '../../constants/constants.jsx';
 
 function MoviesCard ({card, likePut, likeUnPut, saveMovie, pageSaveMovie}) {
 
