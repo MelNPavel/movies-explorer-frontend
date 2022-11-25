@@ -1,5 +1,5 @@
 import { CurrentUserContext } from '../../context/CurrentUserContext.jsx';
-import React, { useState, useEffect,use } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Switch, Route, useHistory } from "react-router-dom";
 import ProtectedRoute from '../../utils/ProtectedRoute.jsx';
 import './App.css';
@@ -21,7 +21,6 @@ function App() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [infoTooltip, setInfoTooltip] = useState(false);
     const history = useHistory();
-    const [email, setEmail] = useState("");
     const [saveMovie, setSaveMovie] = useState([]);
     const [regError, setRegError] = useState();
 
