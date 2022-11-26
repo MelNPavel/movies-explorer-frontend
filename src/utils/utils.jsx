@@ -30,13 +30,3 @@ export const useGetWidthWindow = () => {
   }, [getWidthWindow]);
   return widthWindow;
 }
-
-export const getErrorMessage = (err) => {
-  if (err === 401) {
-    return ("Отказ в доступе")
-  };
-
-  if (err === 409) {
-    return ("Пользователь с такими данными уже существует")
-  };
-}

@@ -9,6 +9,7 @@ function Register(props) {
     const currentUser = React.useContext(CurrentUserContext);
     const [error, setError] = useState([]);
     const [valid, setValid] = useState([]);
+    const [errorMainApi, setErrorMainApi] = useState('');
     
     const [registerData, setRegisterData] = useState({
         name:'',
@@ -35,6 +36,22 @@ function Register(props) {
             ...registerData
         });
     }
+
+    useEffect(() => {
+        if (props.regError === 401) {
+            setErrorMainApi('Отказ в доступе');
+        };
+        if (props.regError === 409) {
+            setErrorMainApi('Пользователь с такими данными уже существует');
+        };
+        if (props.regError === 400) {
+            setErrorMainApi('Ошибка в запросе');
+        };
+        if (props.regError === 500) {
+            setErrorMainApi('Произошла ошибка на сервере');
+        };
+    }, [props.regError])
+    
 
     return(
         <div className="register">
@@ -94,7 +111,7 @@ function Register(props) {
                 </div>
             </form>
             <div className='register__buttons'>
-            <span className="register-input__error">{props.regError}</span>
+            <span className="register-input__error">{errorMainApi}</span>
                 <button 
                 className={`login__button-reg ${!valid ? 'login__button-reg_disable' : ''}`}
                 form="myform"

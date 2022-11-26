@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Login.css';
 
 function Login (props) {
     const [error, setError] = useState([]);
     const [valid, setValid] = useState([]);
+    const [errorMainApi, setErrorMainApi] = useState('');
 
     const [loginData, setLoginData] = useState({
         email:'',
@@ -30,6 +31,16 @@ function Login (props) {
             ...loginData
         });
     }
+
+    useEffect(() => {
+        if (props.regError === 401) {
+            setErrorMainApi('Отказ в доступе');
+        };
+        if (props.regError === 404) {
+            setErrorMainApi('Такого пользователя нет');
+        }
+    }, [props.regError])
+    
 
     return(
         <div className="login">
@@ -71,7 +82,7 @@ function Login (props) {
                 </div>
             </form>
             <div className='login__buttons'>
-                <span className="login-input__error">{props.regError}</span>
+                <span className="login-input__error">{errorMainApi}</span>
                 <button
                 className= {`login__button-reg ${!valid ? 'login__button-reg_disable' : ''}`}
                 form="myform"

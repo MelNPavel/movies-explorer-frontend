@@ -6,6 +6,12 @@ class Api{
         this.headers = headers
 };
 
+_checkResponse(res) {
+  if (res.ok) {
+      return res.json();
+  } return Promise.reject(res);
+}
+
 getUserInfo() {
     return fetch (`${this.url}/users/me`, {
         credentials: 'include',
@@ -90,21 +96,6 @@ deleteCard(cardId) {
   })
   .then(this._checkResponse)
 };
-
-
-
-
-
-
-
-
-
-_checkResponse(res) {
-    if (res.ok) {
-        return res.json();
-     }
-     return Promise.reject(`Ошибка: ${res.status}`);
-}
 };
 
 const api = new Api ({

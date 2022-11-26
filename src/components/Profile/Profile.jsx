@@ -8,6 +8,7 @@ function Profile (props) {
     const [errorName, setErrorName] = useState([]);
     const [errorEmail, setErrorEmail] = useState([]);
     const [valid, setValid] = useState([]);
+    const [errorMainApi, setErrorMainApi] = useState('');
 
     const currentUser = React.useContext(CurrentUserContext);
 
@@ -42,6 +43,20 @@ function Profile (props) {
         setEmail(currentUser.email);
     }, [currentUser]);
     
+    useEffect(() => {
+        if (props.regError === 409) {
+            setErrorMainApi('Пользователь с такими данными уже существует');
+        };
+        if (props.regError === 400) {
+            setErrorMainApi('Ошибка в запросе');
+        };
+        if (props.regError === 404) {
+            setErrorMainApi('Пользователь по указанному _id не найден.');
+        };
+        if (props.regError === 500) {
+            setErrorMainApi('Произошла ошибка на сервере');
+        };
+    }, [props.regError])
     
 
     return(
@@ -88,6 +103,7 @@ function Profile (props) {
                     <span className="profile__error" id="type-email-error">{errorEmail}</span>
             </form>
             <div className='profile__buttons'>
+                <span className="profile-input__error">{errorMainApi}</span>
                 <button
                 className= {`profile__button-edit ${!writeButton ? 'profile__button-edit_disable' : ''}`}
                 form="myform"
