@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import './Navigation.css';
 import {useGetWidthWindow} from '../../utils/utils.jsx';
 
-function Navigation({loggedIn, mainPage}) {
-    
+function Navigation({loggedIn}) {
+
     const width = useGetWidthWindow();
 
     return (
-    <div className={`hamburger-menu ${width>768 ? 'hamburger-menu__disable' : ''}`} >
+    <div className={`hamburger-menu ${width>768 ? 'hamburger-menu__disable' : !loggedIn ? 'hamburger-menu__disable' : ''}`} >
         <input id="menu__toggle" type="checkbox" />
         <label className="menu__btn" htmlFor="menu__toggle">
         <span></span>
