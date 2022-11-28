@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import flag from '../../images/flag.svg';
 import './MoviesCard.css';
 import { configApiMovies } from '../../constants/constants.jsx';
@@ -19,8 +20,6 @@ function MoviesCard ({card, likePut, likeUnPut, saveMovie, pageSaveMovie}) {
 
     const findCardMoovie = findCard(card, saveMovie)
     
-    
-
     const duration = durationOnHour(card);
 
     const cardLikeButtonClassName = (
@@ -51,7 +50,7 @@ function MoviesCard ({card, likePut, likeUnPut, saveMovie, pageSaveMovie}) {
                     <img className='movies-card__flag-icon' src={flag} alt='флаг лайка' />
                 </button>
             </div>
-            <img className='movies-card__image' src={ !pageSaveMovie ? `${configApiMovies.baseUrl}${card.image.url}` : card.image} alt={card.title} />
+            <Link to = ""><img className='movies-card__image' src={ !pageSaveMovie ? `${configApiMovies.baseUrl}${card.image.url}` : card.image} alt={card.title} /></Link>
         </li>
     )
 };

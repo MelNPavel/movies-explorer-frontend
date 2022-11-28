@@ -4,7 +4,7 @@ import './Login.css';
 
 function Login (props) {
     const [error, setError] = useState([]);
-    const [valid, setValid] = useState([]);
+    const [valid, setValid] = useState(false);
     const [errorMainApi, setErrorMainApi] = useState('');
 
     const [loginData, setLoginData] = useState({
@@ -41,7 +41,6 @@ function Login (props) {
         }
     }, [props.regError])
     
-
     return(
         <div className="login">
             <h2 className='login__title'>Рады видеть!</h2>
@@ -60,6 +59,7 @@ function Login (props) {
                         required
                         onChange={handleChandge}
                         value={loginData.email}
+                        pattern="^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+[.][A-Za-z]{2,}$"
                     />
                     <span className="login__error" id="type-email-error">{error.email}</span>
                 </div>

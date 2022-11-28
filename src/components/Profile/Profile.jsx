@@ -103,7 +103,7 @@ function Profile (props) {
                     <span className="profile__error" id="type-email-error">{errorEmail}</span>
             </form>
             <div className='profile__buttons'>
-                <span className="profile-input__error">{errorMainApi}</span>
+                <span className="profile-input__error">{errorMainApi || props.profileMessage}</span>
                 <button
                 className= {`profile__button-edit ${!writeButton ? 'profile__button-edit_disable' : ''}`}
                 form="myform"

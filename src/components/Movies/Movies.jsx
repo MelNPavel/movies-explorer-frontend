@@ -11,15 +11,23 @@ import {filterSearch, shortFiterFilms} from  '../../utils/utils.jsx';
 function Movies ({likePut, likeUnPut, likeFlag, saveMovie}) {
     const [load, setLoad] = useState(false);
     const [searchFilmQuery, setSearchFilmQuery] = useState('');
-    const [shortFilmCheck, setShortFilmCheck] = useState(false);
+    const [shortFilmCheck, setShortFilmCheck] = useState(
+        localStorage.getItem('shortFilmChec') === 'true' ? true : false
+    );
     const [errorFormMessage, setErrorFormMessage] = useState('');
     const [errorsSearchMovies, setErrorsSearchMovies] = useState('');
-    const [cards, setCards] = useState([]);
+    // const [cards, setCards] = useState([]);
     const [filmsFilter, setfilmsFilter] = useState([]);
     const [moreButtonVisibility, setMoreButtonVisibility] = useState(false);
+    
+ 
+    const checkShortFilm = () => {
+        setShortFilmCheck(!shortFilmCheck);
+        localStorage.setItem('shortFilmChec', !shortFilmCheck);
+    }
 
     function handleFilmSearchSubmit(searchFilmQuery) {
-        if(searchFilmQuery){
+        if (searchFilmQuery){
             setLoad(true);
             setSearchFilmQuery(searchFilmQuery); 
             localStorage.setItem('searchFilmQuery', searchFilmQuery);
@@ -28,29 +36,33 @@ function Movies ({likePut, likeUnPut, likeFlag, saveMovie}) {
             if (!localStorage.getItem('cardsMovies')) {
                 moviesApi.getMoviesCards()
                 .then((data) => {
-                    setCards(data);
+                    // setCards(data);
                     setMoreButtonVisibility(true);
-                    listMoviesCards(cards, searchFilmQuery, shortFilmCheck);
+                    listMoviesCards(data, searchFilmQuery, shortFilmCheck);
                     localStorage.setItem('cardsMovies', JSON.stringify(data));
                     setErrorFormMessage('');
-                })                
+                })
                 .catch((err) => {
-                    setLoad(false);
                     setErrorsSearchMovies('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
                     setErrorFormMessage('');
-                }
-                );
+                })
+                .finally(()=>{
+                    setLoad(false);
+                })
             }else{
-                setLoad(false);
-                listMoviesCards(JSON.parse(localStorage.getItem('cardsMovies')), searchFilmQuery, shortFilmCheck)
+                listMoviesCards(JSON.parse(localStorage.getItem('cardsMovies')), searchFilmQuery, shortFilmCheck);
                 setMoreButtonVisibility(true);
                 setErrorFormMessage('');
+                setLoad(false);
 
             }
         }else{
             setLoad(false);
             setErrorFormMessage('Нужно ввести ключевое слово');
             setErrorsSearchMovies('');
+        }
+        if (!filmsFilter.length && searchFilmQuery) {
+            setErrorsSearchMovies('Ничего не найдено');
         }
     }
 
@@ -67,12 +79,14 @@ function Movies ({likePut, likeUnPut, likeFlag, saveMovie}) {
         }
     }, [searchFilmQuery, shortFilmCheck]);
 
+  
+
     return(
         <section className="movies">
             <SearchForm 
                 filmSearchSubmit={handleFilmSearchSubmit}
                 shortFilmCheck={shortFilmCheck}
-                setShortFilmCheck={setShortFilmCheck}
+                chandgeShortFilmCheck={checkShortFilm}
                 errorFormMessage={errorFormMessage}
             />
 
@@ -87,7 +101,7 @@ function Movies ({likePut, likeUnPut, likeFlag, saveMovie}) {
                             likeUnPut={likeUnPut}
                             saveMovie={saveMovie}
                         />
-            : <ErrorMeasageMovies handleError = {errorsSearchMovies}/>
+                        : <ErrorMeasageMovies handleError = {errorsSearchMovies}/>
             }
         </section>
     )

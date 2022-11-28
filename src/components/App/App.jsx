@@ -1,6 +1,6 @@
 import { CurrentUserContext } from '../../context/CurrentUserContext.jsx';
 import React, { useState, useEffect} from 'react';
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route, useHistory, Redirect } from "react-router-dom";
 import ProtectedRoute from '../../utils/ProtectedRoute.jsx';
 import './App.css';
 import api from '../../utils/MainApi.jsx'
@@ -17,18 +17,19 @@ import { configApiMovies } from '../../constants/constants.jsx';
 import { filterMovieCardsUser } from '../../utils/utils.jsx';
 
 function App() {
-    const [currentUser, setcurrentUser] = useState({});
+    const [currentUser, setCurrentUser] = useState({});
     const [loggedIn, setLoggedIn] = useState(false);
-    const [infoTooltip, setInfoTooltip] = useState(false);
+    // const [infoTooltip, setInfoTooltip] = useState(false);
     const history = useHistory();
     const [saveMovie, setSaveMovie] = useState([]);
     const [regError, setRegError] = useState();
+    const [profileMessage, setProfileMessage] = useState('');
 
     //первоначальная загрузка пользователя
 useEffect(() => {
     api.getUserInfo()
         .then((res) => {
-            setcurrentUser(res)
+            setCurrentUser(res)
         })
         .catch((err) => {
             console.log ('Ошибка : ' + err.status);
@@ -49,16 +50,29 @@ useEffect(() => {
         });
 }
 
+//Вход через логин
+const handleLogin = (data) => {
+    api.authorize(data.email, data.password)
+        .then((res) => {
+            setLoggedIn(true);
+            setCurrentUser(res);
+            history.push ('/movies');
+})
+        .catch((err) => {
+            // setInfoTooltip(true);
+            console.log ('Ошибка : ' + err.status);
+            setRegError(err.status);
+    });
+}
+
 //Регистрация
 const handleRegister = (data) => {
     api.registration(data.name, data.email, data.password)
-        .then((res) => {
-            setcurrentUser(res)
-            setLoggedIn(true);
-            history.push ('/movies');
+        .then(() => {
+            handleLogin({email: data.email, password: data.password});
         })
         .catch((err) => {
-            setInfoTooltip(true);
+            // setInfoTooltip(true);
             setLoggedIn(false);
             console.log ('Ошибка : ' + err.status);
             setRegError(err.status);
@@ -70,26 +84,14 @@ const handleRegister = (data) => {
 const handleEditProfile = (data) => {
     api.editProfile(data)
         .then((res) => {
-            setcurrentUser(res)
-        })
-        .catch((err) => {
-            console.log ('Ошибка : ' + err.status);
-            setRegError(err.status);
-        })
-}
+            setCurrentUser(res)
+            setProfileMessage('Данные пользователя изменены')
 
-//Вход через логин
-const handleLogin = (data) => {
-    api.authorize(data.email, data.password)
-        .then((res) => {
-            setLoggedIn(true);
-            history.push ('/movies');
-})
+        })
         .catch((err) => {
-            setInfoTooltip(true);
             console.log ('Ошибка : ' + err.status);
             setRegError(err.status);
-    });
+        })
 }
 
 //Выход
@@ -97,6 +99,7 @@ const onlogOut = () => {
     api.logout()
         .then(() => {
             setLoggedIn(false);
+            localStorage.clear();
             history.push ('/');
         })
         .catch((err) => {
@@ -195,6 +198,7 @@ useEffect(()=>{
                         onlogOut={onlogOut}
                         onUpdateAuth={handleEditProfile}
                         regError={regError}
+                        profileMessage={profileMessage}
                     />
 
                     <Route exact path="/">
@@ -202,14 +206,14 @@ useEffect(()=>{
                     </Route>
 
                     <Route path="/signup">
-                        {loggedIn ? <Movies /> : <Register 
+                        {loggedIn ? <Redirect to='Movies' /> : <Register 
                         onUpdateAuth = {handleRegister}
                         regError={regError}
                         />}
                     </Route>
 
                     <Route path="/signin">
-                    {loggedIn ? <Movies /> : <Login 
+                    {loggedIn ? <Redirect to='Movies' /> : <Login 
                         onUpdateAuth={handleLogin}
                         regError={regError}
                         />

@@ -70,7 +70,7 @@ function MoviesCardList ({cards, moreButtonVisibility, likePut, likeUnPut, saveM
             </ul>
             <div className='movies-list__more'>
                 <button 
-                className={`movies-list__more-button ${moreButtonVisibility ? 'movies-list__more-button-visibility' : ''}`} 
+                className={`movies-list__more-button ${cards.length !== quantityList.length && !pageSaveMovie ? 'movies-list__more-button-visibility' : ''}`} 
                 type='button'
                 onClick={insertMoreCards}
                 >

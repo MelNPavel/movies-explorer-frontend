@@ -4,10 +4,11 @@ import magnifier from '../../images/magnifier.svg';
 import searchButton from '../../images/searchButton.svg';
 import './SearchForm.css';
 
-function SearchForm ({filmSearchSubmit, shortFilmCheck, setShortFilmCheck, errorFormMessage}) {
+function SearchForm ({filmSearchSubmit, shortFilmCheck, chandgeShortFilmCheck, errorFormMessage}) {
 
     const [error, setError] = useState([]);
     const [valid, setValid] = useState([]);
+    const [filmQuery, setFilmQuery] = useState({});
     
     const [filmSearch, setFilmSearch] = useState({});
 
@@ -29,6 +30,13 @@ function SearchForm ({filmSearchSubmit, shortFilmCheck, setShortFilmCheck, error
         filmSearchSubmit(filmSearch.film);
     }
 
+    useEffect(()=>{
+        const saveLocalStorageQuery = localStorage.getItem('searchFilmQuery');
+        if (saveLocalStorageQuery) {
+            setFilmQuery(saveLocalStorageQuery);
+        }
+    }, [setFilmQuery]);
+
     // useEffect(()=>{
     //     setError([errorFormMessage]);
     // },[setError])
@@ -43,7 +51,7 @@ function SearchForm ({filmSearchSubmit, shortFilmCheck, setShortFilmCheck, error
                         className='search__textarea'
                         type="text"
                         name="film"
-                        value={filmSearch.name}
+                        value={filmQuery.value}
                         onChange={handleChandge}
                         placeholder='Фильм'
                         required
@@ -61,7 +69,7 @@ function SearchForm ({filmSearchSubmit, shortFilmCheck, setShortFilmCheck, error
                             className ='search__checkbox' id='checkbox-lable'
                             type='checkbox' 
                             checked={shortFilmCheck} 
-                            onChange={() => setShortFilmCheck(!shortFilmCheck)}
+                            onChange={chandgeShortFilmCheck}
                         />
                         <label className='search__checkbox-lable' htmlFor='checkbox-lable' />
                         <p className='searc__checkbox-film'>Короткометражки</p>

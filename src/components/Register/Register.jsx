@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Register.css';
-import { CurrentUserContext } from '../../context/CurrentUserContext.jsx';
+// import { CurrentUserContext } from '../../context/CurrentUserContext.jsx';
 import { useEffect } from 'react';
-import {getErrorMessage} from '../../utils/utils.jsx'; 
+// import {getErrorMessage} from '../../utils/utils.jsx'; 
 
 function Register(props) {
-    const currentUser = React.useContext(CurrentUserContext);
+    // const currentUser = React.useContext(CurrentUserContext);
     const [error, setError] = useState([]);
-    const [valid, setValid] = useState([]);
+    const [valid, setValid] = useState(false);
     const [errorMainApi, setErrorMainApi] = useState('');
     
     const [registerData, setRegisterData] = useState({
@@ -89,6 +89,7 @@ function Register(props) {
                         required
                         onChange={handleChandge}
                         value={registerData.email}
+                        pattern="^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+[.][A-Za-z]{2,}$"
                     />
                     <span className="register__error" id="type-email-error">{error.email}</span>
                 </div>
