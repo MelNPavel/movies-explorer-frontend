@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import flag from '../../images/flag.svg';
 import './MoviesCard.css';
 import { configApiMovies } from '../../constants/constants.jsx';

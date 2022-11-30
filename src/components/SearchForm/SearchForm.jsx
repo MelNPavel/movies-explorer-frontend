@@ -37,10 +37,6 @@ function SearchForm ({filmSearchSubmit, shortFilmCheck, chandgeShortFilmCheck, e
         }
     }, [setFilmQuery]);
 
-    // useEffect(()=>{
-    //     setError([errorFormMessage]);
-    // },[setError])
-
     return(
         <div className='search'>
             <form className='search-form' onSubmit={handleSubmit} id="myform" noValidate>

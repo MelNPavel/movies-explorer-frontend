@@ -4,7 +4,15 @@ import { useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard.jsx';
 import './MoviesCardList.css';
 import {useGetWidthWindow} from '../../utils/utils.jsx';
-
+import {
+    WIDTH_BIG,
+    WIDTH_SMALL,
+    QUANTITY_CARDS_SMALL,
+    QUANTITY_CARDS_AVERAGE,
+    QUANTITY_CARDS_MANY,
+    QUANTITY_CARDS_MORE_SMALL,
+    QUANTITY_CARDS_MORE_MANY
+    } from '../../constants/constants.jsx';
 
 function MoviesCardList ({cards, moreButtonVisibility, likePut, likeUnPut, saveMovie, pageSaveMovie}) {
     const [quantityList, setQuantityList] = useState([]);
@@ -23,24 +31,24 @@ function MoviesCardList ({cards, moreButtonVisibility, likePut, likeUnPut, saveM
     }
 
     useEffect(()=>{
-        if (width <= 767){
+        if (width <= WIDTH_SMALL){
             setQuantityCard({
-                quantity: 5,
-                moreQuantityCard: 2
+                quantity: QUANTITY_CARDS_SMALL,
+                moreQuantityCard: QUANTITY_CARDS_MORE_SMALL
             })
         }
         
-        if (width > 767 && width <= 1279) {
+        if (width > WIDTH_SMALL && width <= WIDTH_BIG) {
             setQuantityCard({
-                quantity: 8,
-                moreQuantityCard: 2
+                quantity: QUANTITY_CARDS_AVERAGE,
+                moreQuantityCard: QUANTITY_CARDS_MORE_SMALL
             })
         }
 
-        if (width > 1279){
+        if (width > WIDTH_BIG){
             setQuantityCard({
-                quantity: 12,
-                moreQuantityCard: 3
+                quantity: QUANTITY_CARDS_MANY,
+                moreQuantityCard: QUANTITY_CARDS_MORE_MANY
             })
         }
     }, [width])

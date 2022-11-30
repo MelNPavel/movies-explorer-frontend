@@ -1,3 +1,5 @@
+import {FILM_DURATION} from '../constants/constants.jsx';
+
 import { useEffect, useState, useCallback } from "react";
 
 export const filterSearch = (cards, searchFilmQuery) => {
@@ -5,7 +7,7 @@ export const filterSearch = (cards, searchFilmQuery) => {
 };
 
 export const shortFiterFilms = (spisokFilmov) =>{
-    return spisokFilmov.filter(item => item.duration < 40);
+    return spisokFilmov.filter(item => item.duration < FILM_DURATION);
 };
 
 export const filterMovieCardsUser = (massiveSaveMovie, id) => {
