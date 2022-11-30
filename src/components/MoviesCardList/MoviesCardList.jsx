@@ -50,17 +50,17 @@ function MoviesCardList ({cards, moreButtonVisibility, likePut, likeUnPut, saveM
             const cardsList = cards.filter((item, index) => index < quantityCard.quantity)
             setQuantityList(cardsList);
         }else{
-            setQuantityList(cards);
+            setQuantityList(saveMovie);
         }
-    }, [cards, quantityCard.quantity, pageSaveMovie])
+    }, [cards, quantityCard.quantity, saveMovie, pageSaveMovie])
 
     return(
         <section className='movies-list'>
             <ul className='movies-list__card'>
-                {quantityList.map( card => (
+                {quantityList.map(item => (
                     <MoviesCard 
-                    card={card} 
-                    key= {card.id || card.movieId} 
+                    key={item.id || item.movieId} 
+                    card={item} 
                     pageSaveMovie={pageSaveMovie}
                     likePut={likePut}
                     likeUnPut={likeUnPut}

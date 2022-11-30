@@ -36,6 +36,10 @@
     display: none;
   }
 
+.nav-header-reg__link_selected{
+    text-decoration: underline;
+}
+
 @media screen and (max-width: 768px){
     .nav-header-reg{
         padding: 18px 30px;

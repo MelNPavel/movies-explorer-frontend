@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './Navigation.css';
 import {useGetWidthWindow} from '../../utils/utils.jsx';
 
@@ -14,10 +14,10 @@ function Navigation({loggedIn}) {
         <span></span>
         </label>
         <ul className="menu__box">
-            <li className='menu__box-item'><Link to="/" className="menu__item" rel="noreferrer">Главная</Link></li>
-            <li className='menu__box-item'><Link to="/movies" className="menu__item" rel="noreferrer">Фильмы</Link></li>
-            <li className='menu__box-item'><Link to="/saved-movies" className="menu__item" rel="noreferrer">Сохраненные фильмы</Link></li>
-            <li className='menu__box-item'><Link to="/profile" className="menu__item" rel="noreferrer">Аккаунт</Link></li>
+            <li className='menu__box-item'><NavLink exact to="/"  className="menu__item" activeClassName='menu__item_selected' rel="noreferrer">Главная</NavLink></li>
+            <li className='menu__box-item'><NavLink to="/movies" className="menu__item" activeClassName='menu__item_selected' rel="noreferrer">Фильмы</NavLink></li>
+            <li className='menu__box-item'><NavLink to="/saved-movies" className="menu__item" activeClassName='menu__item_selected' rel="noreferrer">Сохраненные фильмы</NavLink></li>
+            <li className='menu__box-item'><NavLink to="/profile" className="menu__item" activeClassName='menu__item_selected' rel="noreferrer">Аккаунт</NavLink></li>
         </ul>
     </div>
     )

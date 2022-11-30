@@ -50,7 +50,7 @@ function MoviesCard ({card, likePut, likeUnPut, saveMovie, pageSaveMovie}) {
                     <img className='movies-card__flag-icon' src={flag} alt='флаг лайка' />
                 </button>
             </div>
-            <Link to = ""><img className='movies-card__image' src={ !pageSaveMovie ? `${configApiMovies.baseUrl}${card.image.url}` : card.image} alt={card.title} /></Link>
+            <a href = {!pageSaveMovie ? `${card.trailerLink}` : card.trailerLink} rel="noreferrer" target="_blank" ><img className='movies-card__image' src={ !pageSaveMovie ? `${configApiMovies.baseUrl}${card.image.url}` : card.image} alt={card.title} /></a>
         </li>
     )
 };

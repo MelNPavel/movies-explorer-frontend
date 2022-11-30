@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import './NavHeaderReg.css';
 
 import logo from '../../images/logo.svg';
@@ -14,11 +14,11 @@ function NavHeaderReg () {
             <nav className="nav-header-reg__auth-area">
                 <Link to="/" rel="noreferrer"><img className="header__logo"  alt="Логотип" src={logo} /></Link>
                 <div className='nav-header-reg__link-movies'>
-                    <Link to="/movies" rel="noreferrer" className={`nav-header-reg__link ${width<769 ? 'nav-header-reg__link_disable' : ''}`}>Фильмы</Link>
-                    <Link to="/saved-movies" rel="noreferrer" className={`nav-header-reg__link ${width<769 ? 'nav-header-reg__link_disable' : ''}`}>Сохраненые фильмы</Link>
+                    <NavLink to="/movies" rel="noreferrer" className={`nav-header-reg__link ${width<769 ? 'nav-header-reg__link_disable' : ''}`} activeClassName='nav-header-reg__link_selected'>Фильмы</NavLink>
+                    <NavLink to="/saved-movies" rel="noreferrer" className={`nav-header-reg__link ${width<769 ? 'nav-header-reg__link_disable' : ''}`} activeClassName='nav-header-reg__link_selected'>Сохраненые фильмы</NavLink>
                 </div>
             </nav>
-            <Link to="/profile" rel="noreferrer" className={`nav-header-reg__link ${width<769 ? 'nav-header-reg__link_disable' : ''}`}>Аккаунт</Link>
+            <NavLink to="/profile" rel="noreferrer" className={`nav-header-reg__link ${width<769 ? 'nav-header-reg__link_disable' : ''}`} activeClassName='nav-header-reg__link_selected'>Аккаунт</NavLink>
         </div>
     )
 };

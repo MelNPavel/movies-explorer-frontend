@@ -25,31 +25,32 @@ function App() {
     const [regError, setRegError] = useState();
     const [profileMessage, setProfileMessage] = useState('');
 
-    //первоначальная загрузка пользователя
-useEffect(() => {
-    api.getUserInfo()
-        .then((res) => {
-            setCurrentUser(res)
-        })
-        .catch((err) => {
-            console.log ('Ошибка : ' + err.status);
-            setRegError(err.status);
-        })
-}, [loggedIn])
-
- //Если есть токен заходи
- const tokenCheck = () => {
+    useEffect(() => {
+        api.getUserInfo()
+            .then((res) => {
+                setCurrentUser(res)
+            })
+            .catch((err) => {
+                console.log ('Ошибка : ' + err.status);
+                setRegError(err.status);
+            })
+    }, [loggedIn])
+    
+    //Если есть токен заходи
+    const tokenCheck = () => {
     api.getContent()
         .then((res) => {
-            setLoggedIn(true);
-            history.push ('/movies');
+            setLoggedIn(true)
         })
         .catch((err) => {
             console.log ('Ошибка : ' + err.status);
-            setRegError(err.status);
+            setRegError(err.status)
+            setCurrentUser({});
+            setLoggedIn(false);
+            localStorage.clear();
         });
 }
-
+    
 //Вход через логин
 const handleLogin = (data) => {
     api.authorize(data.email, data.password)
@@ -98,13 +99,14 @@ const handleEditProfile = (data) => {
 const onlogOut = () => {
     api.logout()
         .then(() => {
+            setCurrentUser({});
             setLoggedIn(false);
             localStorage.clear();
             history.push ('/');
         })
         .catch((err) => {
-            console.log ('Ошибка : ' + err.status);
-            setRegError(err.status);
+            console.log ('Ошибка : ' + err.status)
+            setRegError(err.status)
         })
 }
 
@@ -153,7 +155,7 @@ const deleteSaveCard = (card) => {
 
 useEffect(()=>{
     tokenCheck();
- }, [loggedIn]);
+ },[loggedIn]);
 
 useEffect(()=>{
     api.getSaveCards()
@@ -213,15 +215,16 @@ useEffect(()=>{
                     </Route>
 
                     <Route path="/signin">
-                    {loggedIn ? <Redirect to='Movies' /> : <Login 
-                        onUpdateAuth={handleLogin}
-                        regError={regError}
-                        />
-                    }
+                        {loggedIn ? <Redirect to='Movies' /> : <Login 
+                            onUpdateAuth={handleLogin}
+                            regError={regError}
+                            />
+                        }
                     </Route>
 
-                    <Route component={ErrorPage}/>
-
+                    <Route path="*">
+                        <ErrorPage />
+                    </Route>
                 </Switch>
                 <Footer />
             </div>

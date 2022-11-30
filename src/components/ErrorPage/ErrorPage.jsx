@@ -1,11 +1,11 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import './ErrorPage.css';
 
 function ErrorPage() {
-    const history = useHistory();
-    function onback() {history.goBack()};
-
+    function onback () {
+        window.history.back();
+    }
+    
     return(
         <div className="error-page">
             <div className='error-page__block'>

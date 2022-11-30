@@ -40,8 +40,7 @@ function Header ({loggedIn}) {
                 </header>
             </Route>
 
-            <Route path="/">
-                
+            <Route exact path="/">
                 {loggedIn ? <NavHeaderReg /> : <NavHeader />}
                 <Navigation 
                 loggedIn={loggedIn}
