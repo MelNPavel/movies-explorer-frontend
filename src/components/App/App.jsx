@@ -32,7 +32,7 @@ function App() {
             })
             .catch((err) => {
                 console.log ('Ошибка : ' + err.status);
-                setRegError(err.status);
+                // setRegError(err.status);
             })
     }, [loggedIn])
     
@@ -44,7 +44,7 @@ function App() {
         })
         .catch((err) => {
             console.log ('Ошибка : ' + err.status);
-            setRegError(err.status)
+            // setRegError(err.status)
             setCurrentUser({});
             setLoggedIn(false);
             localStorage.clear();
