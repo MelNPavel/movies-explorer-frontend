@@ -44,7 +44,7 @@ function Login (props) {
     return(
         <div className="login">
             <h2 className='login__title'>Рады видеть!</h2>
-            <form className='login__form' onSubmit={handleSubmit} id="myform">
+            <form className='login__form' onSubmit={handleSubmit} id="myform" noValidate>
                 <div className='login__input-email-block'>
                     <p className='login__input-name-field'>Email</p>
                     <input

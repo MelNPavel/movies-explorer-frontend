@@ -14,7 +14,7 @@ import {
     QUANTITY_CARDS_MORE_MANY
     } from '../../constants/constants.jsx';
 
-function MoviesCardList ({cards, moreButtonVisibility, likePut, likeUnPut, saveMovie, pageSaveMovie}) {
+function MoviesCardList ({ cards, likePut, likeUnPut, saveMovie, pageSaveMovie }) {
     const [quantityList, setQuantityList] = useState([]);
     const [quantityCard, setQuantityCard] = useState({quantity: 0, moreQuantityCard: 0 });
 
@@ -54,13 +54,13 @@ function MoviesCardList ({cards, moreButtonVisibility, likePut, likeUnPut, saveM
     }, [width])
 
     useEffect(()=>{
-        if (cards.length && !pageSaveMovie) {
+        // if (cards.length && !pageSaveMovie) {
             const cardsList = cards.filter((item, index) => index < quantityCard.quantity)
             setQuantityList(cardsList);
-        }else{
-            setQuantityList(saveMovie);
-        }
-    }, [cards, quantityCard.quantity, saveMovie, pageSaveMovie])
+        // }else{
+        //     setQuantityList(cards);
+        // }
+    }, [cards, quantityCard.quantity, pageSaveMovie])
 
     return(
         <section className='movies-list'>

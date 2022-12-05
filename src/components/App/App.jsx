@@ -28,7 +28,8 @@ function App() {
     useEffect(() => {
         api.getUserInfo()
             .then((res) => {
-                setCurrentUser(res)
+                setCurrentUser(res);
+                setRegError('');
             })
             .catch((err) => {
                 console.log ('Ошибка : ' + err.status);
@@ -40,7 +41,12 @@ function App() {
     const tokenCheck = () => {
     api.getContent()
         .then((res) => {
-            setLoggedIn(true)
+            if(!res){
+                onlogOut();
+            }
+            setLoggedIn(true);
+            setLoggedIn(true);
+            setRegError('');
         })
         .catch((err) => {
             console.log ('Ошибка : ' + err.status);
@@ -58,6 +64,7 @@ const handleLogin = (data) => {
             setLoggedIn(true);
             setCurrentUser(res);
             history.push ('/movies');
+            setRegError('');
 })
         .catch((err) => {
             // setInfoTooltip(true);
@@ -71,6 +78,7 @@ const handleRegister = (data) => {
     api.registration(data.name, data.email, data.password)
         .then(() => {
             handleLogin({email: data.email, password: data.password});
+            setRegError('');
         })
         .catch((err) => {
             // setInfoTooltip(true);
@@ -103,6 +111,7 @@ const onlogOut = () => {
             setLoggedIn(false);
             localStorage.clear();
             history.push ('/');
+            setRegError('');
         })
         .catch((err) => {
             console.log ('Ошибка : ' + err.status)

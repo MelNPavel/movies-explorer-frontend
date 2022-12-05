@@ -1,62 +1,78 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Register.css';
-// import { CurrentUserContext } from '../../context/CurrentUserContext.jsx';
-import { useEffect } from 'react';
-// import {getErrorMessage} from '../../utils/utils.jsx'; 
+import { useFormWithValidation } from '../../hooks/useFormWithValidation.jsx';
 
-function Register(props) {
-    // const currentUser = React.useContext(CurrentUserContext);
-    const [error, setError] = useState([]);
-    const [valid, setValid] = useState(false);
+function Register({onUpdateAuth, regError}) {
+
+    const {values, handleChange, errors, valid, setErrors, setValues, resetForm} = useFormWithValidation();
+
     const [errorMainApi, setErrorMainApi] = useState('');
-    
-    const [registerData, setRegisterData] = useState({
-        name:'',
-        email:'',
-        password:'',
-    })
 
-    const handleChandge = (e) => {
-        const {name, value} = e.target;
-        setRegisterData ({
-            ...registerData,
-            [name]: value,
-        });
-        setError ({
-            ...error,
-            [name]: e.target.validationMessage,
-        })
-        setValid ( e.target.closest('form').checkValidity() );
-    };
+
+    // // const currentUser = React.useContext(CurrentUserContext);
+    // const [error, setError] = useState([]);
+    // const [valid, setValid] = useState(false);
+    
+    // const [registerData, setRegisterData] = useState({
+    //     name:'',
+    //     email:'',
+    //     password:'',
+    // })
+
+    // const handleChandge = (e) => {
+    //     const {name, value} = e.target;
+    //     setRegisterData ({
+    //         ...registerData,
+    //         [name]: value,
+    //     });
+    //     setError ({
+    //         ...error,
+    //         [name]: e.target.validationMessage,
+    //     })
+    //     setValid ( e.target.closest('form').checkValidity() );
+    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.onUpdateAuth({
-            ...registerData
+        onUpdateAuth({
+            ...values
         });
     }
 
     useEffect(() => {
-        if (props.regError === 401) {
+        if (regError === 401) {
             setErrorMainApi('Отказ в доступе');
         };
-        if (props.regError === 409) {
+        if (regError === 409) {
             setErrorMainApi('Пользователь с такими данными уже существует');
         };
-        if (props.regError === 400) {
+        if (regError === 400) {
             setErrorMainApi('Ошибка в запросе');
         };
-        if (props.regError === 500) {
+        if (regError === 500) {
             setErrorMainApi('Произошла ошибка на сервере');
         };
-    }, [props.regError])
+    }, [regError])
+
+    useEffect(()=>{
+        resetForm();
+    }, [resetForm]);
+
+    useEffect(()=>{
+        if (!regError){
+            setErrorMainApi('');
+        }
+    }, [regError])
+
+
     
 
     return(
         <div className="register">
             <h2 className='register__title'>Добро пожаловать!</h2>
-            <form className='register__form' onSubmit={handleSubmit} id="myform">
+            <form className='register__form' onSubmit={handleSubmit} id="myform" noValidate>
                 <div className='register__input-name-block'>
                     <p className='register__input-name-field'>Имя</p>
                     <input
@@ -68,12 +84,12 @@ function Register(props) {
                         minLength="2"
                         maxLength="40"
                         required
-                        error={error.name}
-                        onChange={handleChandge}
-                        value={registerData.name}
+                        error={errors.name}
+                        onChange={handleChange}
+                        value={values.name}
                         pattern="^[A-ZА-ЯЁa-zа-яё  -]+$"
                     />
-                    <span className="register__error type-name-error">{error.name}</span>
+                    <span className="register__error type-name-error">{errors.name}</span>
                 </div>
                 <div className='register__input-email-block'>
                     <p className='register__input-name-field'>Email</p>
@@ -85,13 +101,13 @@ function Register(props) {
                         placeholder="Введите Email"
                         minLength="7"
                         maxLength="40"
-                        error={error.email}
+                        error={errors.email}
                         required
-                        onChange={handleChandge}
-                        value={registerData.email}
+                        onChange={handleChange}
+                        value={values.email}
                         pattern="^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+[.][A-Za-z]{2,}$"
                     />
-                    <span className="register__error" id="type-email-error">{error.email}</span>
+                    <span className="register__error" id="type-email-error">{errors.email}</span>
                 </div>
                 <div className='register__input-password-block'>
                     <p className='register__input-password-field'>Пароль</p>
@@ -103,12 +119,12 @@ function Register(props) {
                         placeholder="Пароль"
                         minLength="8"
                         maxLength="50"
-                        error={error.password}
+                        error={errors.password}
                         required
-                        onChange={handleChandge}
-                        value={registerData.password}
+                        onChange={handleChange}
+                        value={values.password}
                     />
-                    <span className="register__error" id="type-password-error">{error.password}</span>
+                    <span className="register__error" id="type-password-error">{errors.password}</span>
                 </div>
             </form>
             <div className='register__buttons'>

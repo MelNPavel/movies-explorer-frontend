@@ -1,41 +1,27 @@
-import React, { useState} from 'react';
+import React from 'react';
 import { useEffect } from 'react';
 import magnifier from '../../images/magnifier.svg';
 import searchButton from '../../images/searchButton.svg';
 import './SearchForm.css';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation.jsx';
 
-function SearchForm ({filmSearchSubmit, shortFilmCheck, chandgeShortFilmCheck, errorFormMessage}) {
+function SearchForm ({filmSearchSubmit, shortFilmCheck, chandgeShortFilmCheck, errorFormMessage, pageSaveMovie}) {
 
-    const [error, setError] = useState([]);
-    const [valid, setValid] = useState([]);
-    const [filmQuery, setFilmQuery] = useState({});
-    
-    const [filmSearch, setFilmSearch] = useState({});
+    const {values, handleChange, setValues} = useFormWithValidation();
 
-    const handleChandge = (e) => {
-        const {name, value} = e.target;
-        setFilmSearch ({
-            ...filmSearch,
-            [name]: value,
-        });
-        setError ({
-            ...error,
-            [name]: e.target.validationMessage,
-        })
-        setValid ( e.target.closest('form').checkValidity() );
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        filmSearchSubmit(filmSearch.film);
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        filmSearchSubmit(values.film);
     }
 
     useEffect(()=>{
-        const saveLocalStorageQuery = localStorage.getItem('searchFilmQuery');
-        if (saveLocalStorageQuery) {
-            setFilmQuery(saveLocalStorageQuery);
+        if (!pageSaveMovie){
+            const film = localStorage.getItem('searchFilmQuery');
+            if (film) {
+                setValues({film});
+            };
         }
-    }, [setFilmQuery]);
+    }, [setValues, pageSaveMovie]);
 
     return(
         <div className='search'>
@@ -47,8 +33,9 @@ function SearchForm ({filmSearchSubmit, shortFilmCheck, chandgeShortFilmCheck, e
                         className='search__textarea'
                         type="text"
                         name="film"
-                        value={filmQuery.value}
-                        onChange={handleChandge}
+                        value={values.film || ''}
+                        // ? values.film : values.saveLocalStorageQuery
+                        onChange={handleChange}
                         placeholder='Фильм'
                         required
                         error={errorFormMessage}
@@ -73,7 +60,7 @@ function SearchForm ({filmSearchSubmit, shortFilmCheck, chandgeShortFilmCheck, e
                     
                 </div>
             </form>
-                <span className="search-input__error">{errorFormMessage}</span>
+                <span className="search-input__error">{!errorFormMessage || values.film ? '' : errorFormMessage}</span>
                 
         </div>
     )

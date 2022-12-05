@@ -55,6 +55,7 @@ function SavedMovies({saveMovie, likeUnPut}) {
                 shortFilmCheck={shortFilmCheck}
                 chandgeShortFilmCheck={checkShortFilm}
                 errorFormMessage={errorFormMessage}
+                pageSaveMovie = {true}
             />
             { filmsFilter.length
                         ? <MoviesCardList

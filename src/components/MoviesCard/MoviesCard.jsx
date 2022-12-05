@@ -1,9 +1,10 @@
 import React from 'react';
 import flag from '../../images/flag.svg';
+import deleteCard from '../../images/icon__COLOR_icon-main.svg';
 import './MoviesCard.css';
 import { configApiMovies } from '../../constants/constants.jsx';
 
-function MoviesCard ({card, likePut, likeUnPut, saveMovie, pageSaveMovie}) {
+function MoviesCard ({ card, likePut, likeUnPut, saveMovie, pageSaveMovie }) {
 
     const durationOnHour = (card) => {
         const minutes = card.duration
@@ -13,16 +14,20 @@ function MoviesCard ({card, likePut, likeUnPut, saveMovie, pageSaveMovie}) {
     }
     
     const findCard = (cardMovie, massiveSaveMovie) => {
+        if (pageSaveMovie) {
+            return massiveSaveMovie.find(item => 
+                item.movieId === cardMovie.movieId)
+        }else{
         return massiveSaveMovie.find(item => 
-            item.movieId === cardMovie.id)
+            item.movieId === cardMovie.id)}
     }
 
-    const findCardMoovie = findCard(card, saveMovie)
-    
+    const findCardMoovie = findCard(card, saveMovie);
+
     const duration = durationOnHour(card);
 
     const cardLikeButtonClassName = (
-        `movies-card__flag ${pageSaveMovie || findCardMoovie ? 'movies-card__flag_green': ''}`
+        `movies-card__flag ${pageSaveMovie ? '' : findCardMoovie ? 'movies-card__flag_green' : ''}`
     ); 
 
     const handleLike = (e) => {
@@ -32,7 +37,6 @@ function MoviesCard ({card, likePut, likeUnPut, saveMovie, pageSaveMovie}) {
         }else{
             likePut(card);
         }
-
     }
 
     return(
@@ -46,7 +50,7 @@ function MoviesCard ({card, likePut, likeUnPut, saveMovie, pageSaveMovie}) {
                 className={cardLikeButtonClassName} 
                 onClick={handleLike} 
                 type='button'>
-                    <img className='movies-card__flag-icon' src={flag} alt='флаг лайка' />
+                    <img className='movies-card__flag-icon' src={pageSaveMovie ? deleteCard : flag} alt='флаг лайка' />
                 </button>
             </div>
             <a href = {!pageSaveMovie ? `${card.trailerLink}` : card.trailerLink} rel="noreferrer" target="_blank" ><img className='movies-card__image' src={ !pageSaveMovie ? `${configApiMovies.baseUrl}${card.image.url}` : card.image} alt={card.title} /></a>
