@@ -39,6 +39,9 @@ function Login (props) {
         if (props.regError === 404) {
             setErrorMainApi('Такого пользователя нет');
         }
+        if (props.regError === 400) {
+            setErrorMainApi('Ошибка в запросе');
+        };
     }, [props.regError])
     
     return(

@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../../context/CurrentUserContext.jsx';
 import './Profile.css';
 
-function Profile (props) {
+function Profile ({onlogOut, onUpdateAuth, regError, profileMessage}) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [errorName, setErrorName] = useState([]);
     const [errorEmail, setErrorEmail] = useState([]);
     const [valid, setValid] = useState([]);
     const [errorMainApi, setErrorMainApi] = useState('');
+    const [profileMessageUse, setProfileMessageUse] = useState('')
 
     const currentUser = React.useContext(CurrentUserContext);
 
@@ -32,7 +33,7 @@ function Profile (props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.onUpdateAuth({
+        onUpdateAuth({
             name,
             email
         });
@@ -42,27 +43,38 @@ function Profile (props) {
         setName(currentUser.name);
         setEmail(currentUser.email);
     }, [currentUser]);
-    
+
+   
     useEffect(() => {
-        if (props.regError === 409) {
+        if (regError === 409) {
             setErrorMainApi('Пользователь с такими данными уже существует');
         };
-        if (props.regError === 400) {
+        if (regError === 400) {
             setErrorMainApi('Ошибка в запросе');
         };
-        if (props.regError === 404) {
+        if (regError === 404) {
             setErrorMainApi('Пользователь по указанному _id не найден.');
         };
-        if (props.regError === 500) {
+        if (regError === 500) {
             setErrorMainApi('Произошла ошибка на сервере');
         };
-    }, [props.regError])
-    
+    }, [regError])
+
+    useEffect(()=>{
+        if (profileMessage) {
+            setProfileMessageUse('Данные пользователя изменены');
+        }
+    }, [profileMessage])
+
+    useEffect(()=>{
+        setProfileMessageUse('');
+        setErrorMainApi('')
+    }, [name, email])
 
     return(
         <div className="profile">
             <h2 className='profile__title'>Привет {currentUser.name}!</h2>
-            <form className='profile__form' onSubmit={handleSubmit} id="myform">
+            <form className='profile__form' onSubmit={handleSubmit} id="myform" noValidate>
                 <div className='profile__input-name'>
                     <div className='profile__input-name-block'>
                         <p className='profile__input-name-field'>Имя</p>
@@ -103,14 +115,14 @@ function Profile (props) {
                     <span className="profile__error" id="type-email-error">{errorEmail}</span>
             </form>
             <div className='profile__buttons'>
-                <span className="profile-input__error">{errorMainApi || props.profileMessage}</span>
+                <span className="profile-input__error">{errorMainApi || profileMessageUse}</span>
                 <button
                 className= {`profile__button-edit ${!writeButton ? 'profile__button-edit_disable' : ''}`}
                 form="myform"
                 >
                     Редактировать
                 </button>
-            <button className='profile__onlogout' onClick={props.onlogOut}>
+            <button className='profile__onlogout' onClick={onlogOut}>
                 Выйти из акаунта
             </button>
             </div>

@@ -6,7 +6,7 @@ import { useFormWithValidation } from '../../hooks/useFormWithValidation.jsx';
 
 function Register({onUpdateAuth, regError}) {
 
-    const {values, handleChange, errors, valid, setErrors, setValues, resetForm} = useFormWithValidation();
+    const {values, handleChange, errors, isValid, setErrors, setValues, resetForm} = useFormWithValidation();
 
     const [errorMainApi, setErrorMainApi] = useState('');
 
@@ -83,7 +83,7 @@ function Register({onUpdateAuth, regError}) {
                         required
                         error={errors.name}
                         onChange={handleChange}
-                        value={values.name}
+                        value={values.name || ''}
                         pattern="^[A-ZА-ЯЁa-zа-яё  -]+$"
                     />
                     <span className="register__error type-name-error">{errors.name}</span>
@@ -101,7 +101,7 @@ function Register({onUpdateAuth, regError}) {
                         error={errors.email}
                         required
                         onChange={handleChange}
-                        value={values.email}
+                        value={values.email || ''}
                         pattern="^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+[.][A-Za-z]{2,}$"
                     />
                     <span className="register__error" id="type-email-error">{errors.email}</span>
@@ -119,7 +119,7 @@ function Register({onUpdateAuth, regError}) {
                         error={errors.password}
                         required
                         onChange={handleChange}
-                        value={values.password}
+                        value={values.password || ''}
                     />
                     <span className="register__error" id="type-password-error">{errors.password}</span>
                 </div>
@@ -127,7 +127,7 @@ function Register({onUpdateAuth, regError}) {
             <div className='register__buttons'>
             <span className="register-input__error">{errorMainApi}</span>
                 <button 
-                className={`login__button-reg ${!valid ? 'login__button-reg_disable' : ''}`}
+                className={`login__button-reg ${!isValid ? 'login__button-reg_disable' : ''}`}
                 form="myform"
                 >
                     Зарегистрироваться

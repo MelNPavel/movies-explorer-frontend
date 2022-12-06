@@ -23,12 +23,16 @@ function App() {
     const history = useHistory();
     const [saveMovie, setSaveMovie] = useState([]);
     const [regError, setRegError] = useState();
-    const [profileMessage, setProfileMessage] = useState('');
+    const [profileMessage, setProfileMessage] = useState(false);
 
     useEffect(() => {
         api.getUserInfo()
             .then((res) => {
+                if(!res){
+                    onlogOut();
+                }
                 setCurrentUser(res);
+                setLoggedIn(true);
                 setRegError('');
             })
             .catch((err) => {
@@ -43,10 +47,10 @@ function App() {
         .then((res) => {
             if(!res){
                 onlogOut();
+            }else{
+                setLoggedIn(true);
+                setRegError('');
             }
-            setLoggedIn(true);
-            setLoggedIn(true);
-            setRegError('');
         })
         .catch((err) => {
             console.log ('Ошибка : ' + err.status);
@@ -94,8 +98,8 @@ const handleEditProfile = (data) => {
     api.editProfile(data)
         .then((res) => {
             setCurrentUser(res)
-            setProfileMessage('Данные пользователя изменены')
-
+            setProfileMessage(true);
+            setRegError('');
         })
         .catch((err) => {
             console.log ('Ошибка : ' + err.status);
@@ -110,8 +114,8 @@ const onlogOut = () => {
             setCurrentUser({});
             setLoggedIn(false);
             localStorage.clear();
-            history.push ('/');
             setRegError('');
+            history.push ('/');
         })
         .catch((err) => {
             console.log ('Ошибка : ' + err.status)
@@ -210,6 +214,7 @@ useEffect(()=>{
                         onUpdateAuth={handleEditProfile}
                         regError={regError}
                         profileMessage={profileMessage}
+                        setProfileMessage={setProfileMessage}
                     />
 
                     <Route exact path="/">
