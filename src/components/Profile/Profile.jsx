@@ -89,7 +89,7 @@ function Profile ({onlogOut, onUpdateAuth, regError, profileMessage}) {
                             required
                             error={errorName}
                             onChange={handleChandgeName}
-                            value={name}
+                            value={name || ''}
                             pattern="^[A-ZА-ЯЁa-zа-яё  -]+$"
                         />
                     </div>
@@ -108,7 +108,7 @@ function Profile ({onlogOut, onUpdateAuth, regError, profileMessage}) {
                         error={errorEmail}
                         required
                         onChange={handleChandgeEmail}
-                        value={email}
+                        value={email || ''}
                         pattern="^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+[.][A-Za-z]{2,}$"
                     />
                 </div>

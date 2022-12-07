@@ -1,11 +1,12 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import './ErrorPage.css';
 
 function ErrorPage() {
-    function onback () {
-        window.history.back();
-    }
-    
+    const history = useHistory();
+
+    const onBack = () => history.goBack();
+
     return(
         <div className="error-page">
             <div className='error-page__block'>
@@ -15,7 +16,7 @@ function ErrorPage() {
             <button 
             className='error-page__button'
             type='button'
-            onClick={onback}
+            onClick={onBack}
             >назад</button>
         </div>
     )

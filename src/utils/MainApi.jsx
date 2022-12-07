@@ -9,7 +9,8 @@ class Api{
 _checkResponse(res) {
   if (res.ok) {
       return res.json();
-  } return Promise.reject(res);
+  }else{
+      return Promise.reject(res)};
 }
 
 getUserInfo() {
@@ -19,6 +20,14 @@ getUserInfo() {
     })
     .then(this._checkResponse)
 };
+// getContent() {
+//   return fetch (`${this.url}/users/me`, {
+//     credentials: 'include',
+//     method: 'GET',
+//     headers: this.headers
+//   })
+//   .then(this._checkResponse)
+// };
 
 editProfile(data) {
     return fetch (`${this.url}/users/me`, {
@@ -30,14 +39,14 @@ editProfile(data) {
         .then(this._checkResponse)
 };
 
-registration (name, email, password) {
+registration(name, email, password) {
   return fetch(`${this.url}/signup`, {
     credentials: 'include',
     method: 'POST',
     headers: this.headers,
     body: JSON.stringify({name, email, password})
   })
-  .then(res => this._checkResponse(res))
+  .then(this._checkResponse)
 };
 
 authorize(email, password) {
@@ -47,17 +56,9 @@ authorize(email, password) {
     headers: this.headers,
     body: JSON.stringify({email, password})
   })
-  .then(res => this._checkResponse(res))
+  .then(this._checkResponse)
 };
 
-getContent() {
-  return fetch(`${this.url}/users/me`, {
-    credentials: 'include',
-    method: 'GET',
-    headers: this.headers
-  })
-  .then(res => this._checkResponse(res))
-};
 
 logout() {
   return fetch(`${this.url}/signout`, {
@@ -65,7 +66,7 @@ logout() {
       method: 'POST',
       headers: this.headers
   })
-  .then(res => this._checkResponse(res));
+  .then(this._checkResponse);
 };
 
 getSaveCards() {

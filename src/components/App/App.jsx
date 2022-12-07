@@ -1,8 +1,8 @@
-import { CurrentUserContext } from '../../context/CurrentUserContext.jsx';
 import React, { useState, useEffect} from 'react';
 import { Switch, Route, useHistory, Redirect } from "react-router-dom";
 import ProtectedRoute from '../../utils/ProtectedRoute.jsx';
 import './App.css';
+import { CurrentUserContext } from '../../context/CurrentUserContext.jsx';
 import api from '../../utils/MainApi.jsx'
 import Header from '../Header/Header.jsx';
 import Main from '../Main/Main.jsx';
@@ -17,8 +17,8 @@ import { configApiMovies } from '../../constants/constants.jsx';
 import { filterMovieCardsUser } from '../../utils/utils.jsx';
 
 function App() {
-    const [currentUser, setCurrentUser] = useState({});
     const [loggedIn, setLoggedIn] = useState(false);
+    const [currentUser, setCurrentUser] = useState({});
     // const [infoTooltip, setInfoTooltip] = useState(false);
     const history = useHistory();
     const [saveMovie, setSaveMovie] = useState([]);
@@ -26,40 +26,40 @@ function App() {
     const [profileMessage, setProfileMessage] = useState(false);
 
     useEffect(() => {
-        api.getUserInfo()
+        
+        return () => {
+            api.getUserInfo()
             .then((res) => {
-                if(!res){
-                    onlogOut();
-                }
-                setCurrentUser(res);
                 setLoggedIn(true);
+                setCurrentUser(res);
                 setRegError('');
-            })
+                })
             .catch((err) => {
                 console.log ('Ошибка : ' + err.status);
-                // setRegError(err.status);
-            })
+                onlogOut();
+                })
+        }
     }, [loggedIn])
     
     //Если есть токен заходи
-    const tokenCheck = () => {
-    api.getContent()
-        .then((res) => {
-            if(!res){
-                onlogOut();
-            }else{
-                setLoggedIn(true);
-                setRegError('');
-            }
-        })
-        .catch((err) => {
-            console.log ('Ошибка : ' + err.status);
-            // setRegError(err.status)
-            setCurrentUser({});
-            setLoggedIn(false);
-            localStorage.clear();
-        });
-}
+//     const tokenCheck = () => {
+//     api.getContent()
+//         .then((res) => {
+//             if(!res){
+//                 onlogOut();
+//             }else{
+//                 setLoggedIn(true);
+//                 setRegError('');
+//             }
+//         })
+//         .catch((err) => {
+//             console.log ('Ошибка : ' + err.status);
+//             // setRegError(err.status)
+//             setCurrentUser({});
+//             setLoggedIn(false);
+//             localStorage.clear();
+//         });
+// }
     
 //Вход через логин
 const handleLogin = (data) => {
@@ -67,13 +67,14 @@ const handleLogin = (data) => {
         .then((res) => {
             setLoggedIn(true);
             setCurrentUser(res);
-            history.push ('/movies');
             setRegError('');
+            history.push ('/movies');
 })
         .catch((err) => {
             // setInfoTooltip(true);
             console.log ('Ошибка : ' + err.status);
             setRegError(err.status);
+            onlogOut();
     });
 }
 
@@ -166,9 +167,9 @@ const deleteSaveCard = (card) => {
     })
 }
 
-useEffect(()=>{
-    tokenCheck();
- },[loggedIn]);
+// useEffect(()=>{
+//     tokenCheck();
+//  },[loggedIn]);
 
 useEffect(()=>{
     api.getSaveCards()
@@ -177,9 +178,13 @@ useEffect(()=>{
         setSaveMovie(saveMovieFilterUser);
     })
     .catch((err) => {
-        console.log(err)
+        console.log(err);
+        setRegError('');
     })
- }, [loggedIn, currentUser]);
+    }, [loggedIn, currentUser]);
+
+
+
 
     return (
         <CurrentUserContext.Provider value={currentUser}>
@@ -187,6 +192,7 @@ useEffect(()=>{
                 <Header 
                 loggedIn={loggedIn}
                 />
+
                 <Switch>
                     
                     <ProtectedRoute
@@ -217,23 +223,24 @@ useEffect(()=>{
                         setProfileMessage={setProfileMessage}
                     />
 
-                    <Route exact path="/">
-                        <Main />
-                    </Route>
-
+                    
                     <Route path="/signup">
-                        {loggedIn ? <Redirect to='Movies' /> : <Register 
+                        {loggedIn ? <Redirect to='/movies' /> : <Register 
                         onUpdateAuth = {handleRegister}
                         regError={regError}
                         />}
                     </Route>
 
                     <Route path="/signin">
-                        {loggedIn ? <Redirect to='Movies' /> : <Login 
+                        {loggedIn ? <Redirect to='/movies' /> : <Login 
                             onUpdateAuth={handleLogin}
                             regError={regError}
                             />
                         }
+                    </Route>
+
+                    <Route path="/">
+                        <Main />
                     </Route>
 
                     <Route path="*">
