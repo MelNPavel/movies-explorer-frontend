@@ -27,16 +27,13 @@ function App() {
     const [regError, setRegError] = useState();
     const [profileMessage, setProfileMessage] = useState(false);
 
-    useEffect(() => {
+    const tokenCheck = () => {
         api.getUserInfo()
             .then((res) => {
-                if(!res){
-                    onlogOut();
-                }else{
                 setCurrentUser(res);
                 setLoggedIn(true);
                 setRegError('');
-                }})
+                })
             .catch((err) => {
                 console.log ('Ошибка : ' + err.status);
                 onlogOut();
@@ -45,7 +42,7 @@ function App() {
                 isUserChecking.current = false;
             })
         
-    }, [])
+    };
     
     //Если есть токен заходи
 //     const tokenCheck = () => {
@@ -177,9 +174,9 @@ const handleRegErrorClear = () => {
     setRegError('')
 }
 
-// useEffect(()=>{
-//     tokenCheck();
-//  },[loggedIn]);
+useEffect(()=>{
+    tokenCheck();
+ },[loggedIn]);
 
 useEffect(()=>{
     api.getSaveCards()
