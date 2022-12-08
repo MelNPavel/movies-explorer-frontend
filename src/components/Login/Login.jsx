@@ -1,48 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Login.css';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation.jsx';
 
-function Login (props) {
-    const [error, setError] = useState([]);
-    const [valid, setValid] = useState(false);
+function Login ({onUpdateAuth, regError, unRegError}) {
+    
+    const {values, handleChange, errors, isValid, setErrors, setValues, resetForm} = useFormWithValidation();
+
     const [errorMainApi, setErrorMainApi] = useState('');
-
-    const [loginData, setLoginData] = useState({
-        email:'',
-        password:'',
-    })
-
-    const handleChandge = (e) => {
-        const {name, value} = e.target;
-        setLoginData ({
-            ...loginData,
-            [name]: value,
-        });
-        setError ({
-            ...error,
-            [name]: e.target.validationMessage,
-        })
-        setValid ( e.target.closest('form').checkValidity() );
-    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.onUpdateAuth({
-            ...loginData
+        onUpdateAuth({
+            ...values
         });
     }
 
     useEffect(() => {
-        if (props.regError === 401) {
+        if (regError === 401) {
             setErrorMainApi('Отказ в доступе');
         };
-        if (props.regError === 404) {
+        if (regError === 404) {
             setErrorMainApi('Такого пользователя нет');
         }
-        if (props.regError === 400) {
+        if (regError === 400) {
             setErrorMainApi('Ошибка в запросе');
         };
-    }, [props.regError])
+    }, [regError])
+
+    useEffect(()=>{
+        resetForm();
+    }, [resetForm]);
+
+    useEffect(()=>{
+        setErrorMainApi('');
+        unRegError('');
+    }, [values]);
     
     return(
         <div className="login">
@@ -58,13 +51,13 @@ function Login (props) {
                         placeholder="Email"
                         minLength="7"
                         maxLength="40"
-                        error={error.email}
+                        error={values.email}
                         required
-                        onChange={handleChandge}
-                        value={loginData.email}
+                        onChange={handleChange}
+                        value={values.email || ''}
                         pattern="^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+[.][A-Za-z]{2,}$"
                     />
-                    <span className="login__error" id="type-email-error">{error.email}</span>
+                    <span className="login__error" id="type-email-error">{errors.email}</span>
                 </div>
                 <div className='login__input-password-block'>
                     <p className='login__input-password-field'>Пароль</p>
@@ -76,18 +69,18 @@ function Login (props) {
                         placeholder="Пароль"
                         minLength="8"
                         maxLength="50"
-                        error={error.password}
+                        error={errors.password}
                         required
-                        onChange={handleChandge}
-                        value={loginData.password}
+                        onChange={handleChange}
+                        value={values.password || ''}
                     />
-                    <span className="login__error" id="type-password-error">{error.password}</span>
+                    <span className="login__error" id="type-password-error">{errors.password}</span>
                 </div>
             </form>
             <div className='login__buttons'>
                 <span className="login-input__error">{errorMainApi}</span>
                 <button
-                className= {`login__button-reg ${!valid ? 'login__button-reg_disable' : ''}`}
+                className= {`login__button-reg ${!isValid ? 'login__button-reg_disable' : ''}`}
                 form="myform"
                 >
                     Войти

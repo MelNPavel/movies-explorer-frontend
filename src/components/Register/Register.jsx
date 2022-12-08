@@ -4,35 +4,12 @@ import { Link } from 'react-router-dom';
 import './Register.css';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation.jsx';
 
-function Register({onUpdateAuth, regError}) {
+function Register({onUpdateAuth, regError, unRegError}) {
 
     const {values, handleChange, errors, isValid, setErrors, setValues, resetForm} = useFormWithValidation();
 
     const [errorMainApi, setErrorMainApi] = useState('');
-
-
-    // // const currentUser = React.useContext(CurrentUserContext);
-    // const [error, setError] = useState([]);
-    // const [valid, setValid] = useState(false);
-    
-    // const [registerData, setRegisterData] = useState({
-    //     name:'',
-    //     email:'',
-    //     password:'',
-    // })
-
-    // const handleChandge = (e) => {
-    //     const {name, value} = e.target;
-    //     setRegisterData ({
-    //         ...registerData,
-    //         [name]: value,
-    //     });
-    //     setError ({
-    //         ...error,
-    //         [name]: e.target.validationMessage,
-    //     })
-    //     setValid ( e.target.closest('form').checkValidity() );
-    // };
+    // const [unRegError, setUnRegError] = useState();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -40,6 +17,8 @@ function Register({onUpdateAuth, regError}) {
             ...values
         });
     }
+
+
 
     useEffect(() => {
         if (regError === 401) {
@@ -61,10 +40,9 @@ function Register({onUpdateAuth, regError}) {
     }, [resetForm]);
 
     useEffect(()=>{
-        if (!regError){
-            setErrorMainApi('');
-        }
-    }, [regError])
+        setErrorMainApi('');
+        unRegError('');
+    }, [values]);
 
     return(
         <div className="register">

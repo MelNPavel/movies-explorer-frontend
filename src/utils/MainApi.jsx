@@ -16,6 +16,7 @@ _checkResponse(res) {
 getUserInfo() {
     return fetch (`${this.url}/users/me`, {
         credentials: 'include',
+        method: 'GET',
         headers: this.headers
     })
     .then(this._checkResponse)

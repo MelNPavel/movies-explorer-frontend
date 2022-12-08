@@ -13,10 +13,12 @@ import Profile from '../Profile/Profile.jsx';
 import Register from '../Register/Register.jsx';
 import Login from '../Login/Login.jsx';
 import ErrorPage from '../ErrorPage/ErrorPage.jsx';
+import Preloader from '../Preloader/Preloader.jsx';
 import { configApiMovies } from '../../constants/constants.jsx';
 import { filterMovieCardsUser } from '../../utils/utils.jsx';
 
 function App() {
+    const isUserChecking = React.useRef(true);
     const [loggedIn, setLoggedIn] = useState(false);
     const [currentUser, setCurrentUser] = useState({});
     // const [infoTooltip, setInfoTooltip] = useState(false);
@@ -26,20 +28,24 @@ function App() {
     const [profileMessage, setProfileMessage] = useState(false);
 
     useEffect(() => {
-        
-        return () => {
-            api.getUserInfo()
+        api.getUserInfo()
             .then((res) => {
-                setLoggedIn(true);
+                if(!res){
+                    onlogOut();
+                }else{
                 setCurrentUser(res);
+                setLoggedIn(true);
                 setRegError('');
-                })
+                }})
             .catch((err) => {
                 console.log ('Ошибка : ' + err.status);
                 onlogOut();
                 })
-        }
-    }, [loggedIn])
+            .finally(() => {
+                isUserChecking.current = false;
+            })
+        
+    }, [])
     
     //Если есть токен заходи
 //     const tokenCheck = () => {
@@ -167,6 +173,10 @@ const deleteSaveCard = (card) => {
     })
 }
 
+const handleRegErrorClear = () => {
+    setRegError('')
+}
+
 // useEffect(()=>{
 //     tokenCheck();
 //  },[loggedIn]);
@@ -185,14 +195,15 @@ useEffect(()=>{
 
 
 
-
-    return (
+    if (isUserChecking.current) {
+        return <Preloader />
+    }else{
+        return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="app">
                 <Header 
-                loggedIn={loggedIn}
+                    loggedIn={loggedIn}
                 />
-
                 <Switch>
                     
                     <ProtectedRoute
@@ -228,6 +239,7 @@ useEffect(()=>{
                         {loggedIn ? <Redirect to='/movies' /> : <Register 
                         onUpdateAuth = {handleRegister}
                         regError={regError}
+                        unRegError={handleRegErrorClear}
                         />}
                     </Route>
 
@@ -235,11 +247,12 @@ useEffect(()=>{
                         {loggedIn ? <Redirect to='/movies' /> : <Login 
                             onUpdateAuth={handleLogin}
                             regError={regError}
+                            unRegError={handleRegErrorClear}
                             />
                         }
                     </Route>
 
-                    <Route path="/">
+                    <Route exact path="/">
                         <Main />
                     </Route>
 
@@ -250,7 +263,7 @@ useEffect(()=>{
                 <Footer />
             </div>
         </CurrentUserContext.Provider>
-    )
+    )}
 };
 
 export default App;

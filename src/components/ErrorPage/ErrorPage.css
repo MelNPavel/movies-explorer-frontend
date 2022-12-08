@@ -32,6 +32,7 @@
     color: #FF6838;
     background-color: white;
     border: 0;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 540px){

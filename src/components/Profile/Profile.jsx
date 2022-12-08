@@ -63,6 +63,8 @@ function Profile ({onlogOut, onUpdateAuth, regError, profileMessage}) {
     useEffect(()=>{
         if (profileMessage) {
             setProfileMessageUse('Данные пользователя изменены');
+        }else{
+            setProfileMessageUse('');
         }
     }, [profileMessage])
 
