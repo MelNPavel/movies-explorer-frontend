@@ -166,6 +166,14 @@ const saveCardsMovie = (card) => {
     })
     .catch((err) => {
         console.log(err)
+        if (err.status ===401){
+            setCurrentUser({});
+            setLoggedIn(false);
+            localStorage.clear();
+            setRegError('');
+            setProfileMessage(false);
+            history.push ('/');
+        }
     })
 }
 
@@ -184,6 +192,14 @@ const deleteSaveCard = (card) => {
     })
     .catch((err) => {
         console.log(err)
+        if (err.status ===401){
+            setCurrentUser({});
+            setLoggedIn(false);
+            localStorage.clear();
+            setRegError('');
+            setProfileMessage(false);
+            history.push ('/');
+        }
     })
 }
 
