@@ -77,7 +77,14 @@ const handleLogin = (data) => {
             // setInfoTooltip(true);
             console.log ('Ошибка : ' + err.status);
             setRegError(err.status);
-            onlogOut();
+            if (err.status ===401){
+                setCurrentUser({});
+                setLoggedIn(false);
+                localStorage.clear();
+                setRegError('');
+                setProfileMessage(false);
+                history.push ('/');
+            }
     });
 }
 
