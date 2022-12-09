@@ -102,12 +102,21 @@ const handleEditProfile = (data) => {
     api.editProfile(data)
         .then((res) => {
             setCurrentUser(res)
-            setProfileMessage(true);
             setRegError('');
+            setProfileMessage(true);
         })
         .catch((err) => {
             console.log ('Ошибка : ' + err.status);
             setRegError(err.status);
+            if (err.status ===401){
+                setCurrentUser({});
+                setLoggedIn(false);
+                localStorage.clear();
+                setRegError('');
+                setProfileMessage(false);
+                history.push ('/');
+            }
+            
         })
 }
 
@@ -119,6 +128,7 @@ const onlogOut = () => {
             setLoggedIn(false);
             localStorage.clear();
             setRegError('');
+            setProfileMessage(false);
             history.push ('/');
         })
         .catch((err) => {
@@ -172,6 +182,10 @@ const deleteSaveCard = (card) => {
 
 const handleRegErrorClear = () => {
     setRegError('')
+}
+
+const handleProfileMessageClear = () => {
+    setProfileMessage(false)
 }
 
 useEffect(()=>{
@@ -229,6 +243,8 @@ useEffect(()=>{
                         regError={regError}
                         profileMessage={profileMessage}
                         setProfileMessage={setProfileMessage}
+                        unRegError={handleRegErrorClear}
+                        unProfileMessage={handleProfileMessageClear}
                     />
 
                     

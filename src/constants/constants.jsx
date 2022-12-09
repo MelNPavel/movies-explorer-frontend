@@ -4,14 +4,15 @@ const configApiMain = {
   // baseUrl: '//localhost:4000',
   baseUrl: 'https://api.movies-explorer-mpn.nomoredomains.icu',
   headers: {    
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'cache-control': 'no-cache'
   },
 };
 
 const configApiMovies = {
   baseUrl: 'https://api.nomoreparties.co',
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json'    
   },
 };
 

@@ -1,47 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../../context/CurrentUserContext.jsx';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation.jsx';
 import './Profile.css';
 
-function Profile ({onlogOut, onUpdateAuth, regError, profileMessage}) {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [errorName, setErrorName] = useState([]);
-    const [errorEmail, setErrorEmail] = useState([]);
-    const [valid, setValid] = useState([]);
+function Profile ({onlogOut, onUpdateAuth, regError, profileMessage, unRegError, unProfileMessage}) {
+
     const [errorMainApi, setErrorMainApi] = useState('');
-    const [profileMessageUse, setProfileMessageUse] = useState('')
-
+    const [profileMessageUse, setProfileMessageUse] = useState('');
     const currentUser = React.useContext(CurrentUserContext);
+    
+    const {values, handleChange, errors, isValid, setErrors, setValues} = useFormWithValidation();
 
-    const writeButton = valid && (name !== currentUser.name || email !== currentUser.email);
 
-    const handleChandgeName = (e) => {
-        setName(e.target.value);
-        setErrorName(e.target.validationMessage);
-        if (writeButton){
-            setValid (e.target.closest('form').checkValidity() );
-        };
-    };
-
-    const handleChandgeEmail = (e) => {
-        setEmail(e.target.value);
-        setErrorEmail(e.target.validationMessage)
-        if (writeButton){
-            setValid (e.target.closest('form').checkValidity() );
-        };
-    };
+    const writeButton = isValid && (values.name !== currentUser.name || values.email !== currentUser.email);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         onUpdateAuth({
-            name,
-            email
+            name: values.name,
+            email: values.email
         });
     };
+
+    // const firstClearMessage = () => {
+    //     setProfileMessageUse('');
+    // }
+   
+    // firstClearMessage();
+
+    const handleChandgeInter = (e) => {
+        handleChange(e);
+
+        setErrorMainApi('');
+        unRegError('');
+        unProfileMessage('');
+        setProfileMessageUse('');
+    }
     
     useEffect(() => {
-        setName(currentUser.name);
-        setEmail(currentUser.email);
+        setValues({
+            name:currentUser.name,
+            email:currentUser.email,
+        });
     }, [currentUser]);
 
    
@@ -60,18 +60,22 @@ function Profile ({onlogOut, onUpdateAuth, regError, profileMessage}) {
         };
     }, [regError])
 
-    useEffect(()=>{
+     useEffect(()=>{
         if (profileMessage) {
             setProfileMessageUse('Данные пользователя изменены');
-        }else{
-            setProfileMessageUse('');
         }
     }, [profileMessage])
 
-    useEffect(()=>{
-        setProfileMessageUse('');
-        setErrorMainApi('')
-    }, [name, email])
+    // useEffect(()=>{
+    //     setErrorMainApi('');
+    //     unRegError('');
+    //     unProfileMessage('');
+    //     setProfileMessageUse('');
+    // }, [setValues]);
+
+     useEffect(()=>{
+        setProfileMessageUse(!profileMessageUse);
+     }, [])
 
     return(
         <div className="profile">
@@ -89,13 +93,13 @@ function Profile ({onlogOut, onUpdateAuth, regError, profileMessage}) {
                             minLength="2"
                             maxLength="40"
                             required
-                            error={errorName}
-                            onChange={handleChandgeName}
-                            value={name || ''}
+                            error={values.errorName}
+                            onChange={handleChandgeInter}
+                            value={values.name || ''}
                             pattern="^[A-ZА-ЯЁa-zа-яё  -]+$"
                         />
                     </div>
-                    <span className="profile__error type-name-error">{errorName}</span>
+                    <span className="profile__error type-name-error">{errors.name}</span>
                 </div>
                 <div className='profile__input-email-block'>
                     <p className='profile__input-name-field'>Email</p>
@@ -107,14 +111,14 @@ function Profile ({onlogOut, onUpdateAuth, regError, profileMessage}) {
                         placeholder="email@yandex.ru"
                         minLength="7"
                         maxLength="40"
-                        error={errorEmail}
+                        error={values.errorEmail}
                         required
-                        onChange={handleChandgeEmail}
-                        value={email || ''}
+                        onChange={handleChandgeInter}
+                        value={values.email || ''}
                         pattern="^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+[.][A-Za-z]{2,}$"
                     />
                 </div>
-                    <span className="profile__error" id="type-email-error">{errorEmail}</span>
+                    <span className="profile__error" id="type-email-error">{errors.email}</span>
             </form>
             <div className='profile__buttons'>
                 <span className="profile-input__error">{errorMainApi || profileMessageUse}</span>
