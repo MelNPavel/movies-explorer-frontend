@@ -1,22 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './Navigation.css';
+import {useGetWidthWindow} from '../../utils/utils.jsx';
 
-// import logo from '../../images/logo.svg';
+function Navigation({loggedIn}) {
 
-function Navigation() {
+    const width = useGetWidthWindow();
+
     return (
-    <div className="hamburger-menu">
+    <div className={`hamburger-menu ${width>768 ? 'hamburger-menu__disable' : !loggedIn ? 'hamburger-menu__disable' : ''}`} >
         <input id="menu__toggle" type="checkbox" />
         <label className="menu__btn" htmlFor="menu__toggle">
         <span></span>
         </label>
-
         <ul className="menu__box">
-            <li className='menu__box-item'><Link to="/" className="menu__item" target="_blank" rel="noreferrer">Главная</Link></li>
-            <li className='menu__box-item'><Link to="/movies" className="menu__item" target="_blank" rel="noreferrer">Фильмы</Link></li>
-            <li className='menu__box-item'><Link to="/saved-movies"className="menu__item" href="#" target="_blank" rel="noreferrer">Сохраненные фильмы</Link></li>
-            <li className='menu__box-item'><Link to="/profile"className="menu__item" href="#" target="_blank" rel="noreferrer">Аккаунт</Link></li>
+            <li className='menu__box-item'><NavLink exact to="/"  className="menu__item" activeClassName='menu__item_selected' rel="noreferrer">Главная</NavLink></li>
+            <li className='menu__box-item'><NavLink to="/movies" className="menu__item" activeClassName='menu__item_selected' rel="noreferrer">Фильмы</NavLink></li>
+            <li className='menu__box-item'><NavLink to="/saved-movies" className="menu__item" activeClassName='menu__item_selected' rel="noreferrer">Сохраненные фильмы</NavLink></li>
+            <li className='menu__box-item'><NavLink to="/profile" className="menu__item" activeClassName='menu__item_selected' rel="noreferrer">Аккаунт</NavLink></li>
         </ul>
     </div>
     )

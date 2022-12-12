@@ -1,12 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Register.css';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation.jsx';
 
-function Register() {
+function Register({onUpdateAuth, regError, unRegError}) {
+
+    const {values, handleChange, errors, isValid, setErrors, setValues, resetForm} = useFormWithValidation();
+
+    const [errorMainApi, setErrorMainApi] = useState('');
+    // const [unRegError, setUnRegError] = useState();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onUpdateAuth({
+            ...values
+        });
+    }
+
+
+
+    useEffect(() => {
+        if (regError === 401) {
+            setErrorMainApi('Отказ в доступе');
+        };
+        if (regError === 409) {
+            setErrorMainApi('Пользователь с такими данными уже существует');
+        };
+        if (regError === 400) {
+            setErrorMainApi('Ошибка в запросе');
+        };
+        if (regError === 500) {
+            setErrorMainApi('Произошла ошибка на сервере');
+        };
+    }, [regError])
+
+    useEffect(()=>{
+        resetForm();
+    }, [resetForm]);
+
+    useEffect(()=>{
+        setErrorMainApi('');
+        unRegError('');
+    }, [values]);
+
     return(
         <div className="register">
             <h2 className='register__title'>Добро пожаловать!</h2>
-            <form className='register__form'>
+            <form className='register__form' onSubmit={handleSubmit} id="myform" noValidate>
                 <div className='register__input-name-block'>
                     <p className='register__input-name-field'>Имя</p>
                     <input
@@ -14,14 +55,16 @@ function Register() {
                         className="register__input register__input_type_name"
                         type="text"
                         name="name"
-                        placeholder='Павел'
+                        placeholder='Введите имя'
                         minLength="2"
                         maxLength="40"
                         required
-                        // onChange={handleChangeName}
-                        // value={name}
+                        error={errors.name}
+                        onChange={handleChange}
+                        value={values.name || ''}
+                        pattern="^[A-ZА-ЯЁa-zа-яё  -]+$"
                     />
-                    <span className="register__error type-name-error"></span>
+                    <span className="register__error type-name-error">{errors.name}</span>
                 </div>
                 <div className='register__input-email-block'>
                     <p className='register__input-name-field'>Email</p>
@@ -30,13 +73,16 @@ function Register() {
                         className="register__input register__input_type_email"
                         type="email"
                         name="email"
-                        placeholder="email@yandex.ru"
-                        minLength="8"
+                        placeholder="Введите Email"
+                        minLength="7"
+                        maxLength="40"
+                        error={errors.email}
                         required
-                        // onChange={handleChangeDescription}
-                        // value={description}
+                        onChange={handleChange}
+                        value={values.email || ''}
+                        pattern="^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+[.][A-Za-z]{2,}$"
                     />
-                    <span className="register__error" id="type-email-error"></span>
+                    <span className="register__error" id="type-email-error">{errors.email}</span>
                 </div>
                 <div className='register__input-password-block'>
                     <p className='register__input-password-field'>Пароль</p>
@@ -45,16 +91,25 @@ function Register() {
                         className="register__input register__input_type_password"
                         type="password"
                         name="password"
+                        placeholder="Пароль"
                         minLength="8"
+                        maxLength="50"
+                        error={errors.password}
                         required
-                        // onChange={handleChangeDescription}
-                        // value={description}
+                        onChange={handleChange}
+                        value={values.password || ''}
                     />
-                    <span className="register__error" id="type-password-error"></span>
+                    <span className="register__error" id="type-password-error">{errors.password}</span>
                 </div>
             </form>
             <div className='register__buttons'>
-                <button className='register__button-reg'>Зарегистрироваться</button>
+            <span className="register-input__error">{errorMainApi}</span>
+                <button 
+                className={`login__button-reg ${!isValid ? 'login__button-reg_disable' : ''}`}
+                form="myform"
+                >
+                    Зарегистрироваться
+                </button>
                 <button className='register__link-signin'>
                     Уже зарегистрированы? 
                     <Link to="/signin" className="register__link">Войти</Link>

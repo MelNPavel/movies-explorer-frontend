@@ -1,89 +1,108 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import SearchForm from '../SearchForm/SearchForm.jsx';
 import Preloader from '../Preloader/Preloader.jsx';
 import MoviesCardList from '../MoviesCardList/MoviesCardList.jsx';
 import './Movies.css';
+import moviesApi from '../../utils/MoviesApi.jsx';
+import ErrorMeasageMovies from '../ErrorMeasageMovies/ErrorMeasageMovies.jsx';
+import {filterSearch, shortFiterFilms} from  '../../utils/utils.jsx';
 
-function Movies () {
-    const load = false;
-    const moviesCard = [
-        {
-            id: 1,
-            title: '33 слова о дизайне',
-            time: '1ч 47м',
-            image:'https://images.unsplash.com/photo-1666812272845-c5dcaae45453?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
-        },
-        {
-            id: 2,
-            title: '33 слова о дизайне',
-            time: '1ч 47м',
-            image:'https://images.unsplash.com/photo-1666668321985-105042873ddc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
-        },
-        {
-            id: 3,
-            title: '33 слова о дизайне',
-            time: '1ч 47м',
-            image:'https://images.unsplash.com/photo-1666834744271-af5ef132a179?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-        },
-        {
-            id: 4,
-            title: '33 слова о дизайне',
-            time: '1ч 47м',
-            image:'https://images.unsplash.com/photo-1666625628272-a1071f6f7173?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80',
-        },
-        {
-            id: 5,
-            title: '33 слова о дизайне',
-            time: '1ч 47м',
-            image:'https://images.unsplash.com/photo-1666625628272-a1071f6f7173?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80',
-        },
-        {
-            id: 6,
-            title: '33 слова о дизайне',
-            time: '1ч 47м',
-            image:'https://images.unsplash.com/photo-1666625628272-a1071f6f7173?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80',
-        },
-        {
-            id: 7,
-            title: '33 слова о дизайне',
-            time: '1ч 47м',
-            image:'https://images.unsplash.com/photo-1666625628272-a1071f6f7173?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80',
-        },
-        {
-            id: 8,
-            title: '33 слова о дизайне',
-            time: '1ч 47м',
-            image:'https://images.unsplash.com/photo-1666625628272-a1071f6f7173?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80',
-        },
-        {
-            id: 9,
-            title: '33 слова о дизайне',
-            time: '1ч 47м',
-            image:'https://images.unsplash.com/photo-1666625628272-a1071f6f7173?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80',
-        },
-        {
-            id: 10,
-            title: '33 слова о дизайне',
-            time: '1ч 47м',
-            image:'https://images.unsplash.com/photo-1666625628272-a1071f6f7173?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80',
-        },
-        {
-            id: 11,
-            title: '33 слова о дизайне',
-            time: '1ч 47м',
-            image:'https://images.unsplash.com/photo-1666625628272-a1071f6f7173?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80',
-        },
-    ]
+function Movies ({likePut, likeUnPut, likeFlag, saveMovie}) {
+    const [load, setLoad] = useState(false);
+    const [searchFilmQuery, setSearchFilmQuery] = useState('');
+    const [shortFilmCheck, setShortFilmCheck] = useState(
+        localStorage.getItem('shortFilmChec') === 'true' ? true : false
+    );
+    const [errorFormMessage, setErrorFormMessage] = useState('');
+    const [errorsSearchMovies, setErrorsSearchMovies] = useState('');
+    // const [cards, setCards] = useState([]);
+    const [filmsFilter, setfilmsFilter] = useState([]);
+    const [moreButtonVisibility, setMoreButtonVisibility] = useState(false);
+    
+ 
+    const checkShortFilm = () => {
+        setShortFilmCheck(!shortFilmCheck);
+        localStorage.setItem('shortFilmChec', !shortFilmCheck);
+    }
+
+    function handleFilmSearchSubmit(searchFilmQuery) {
+        if (searchFilmQuery){
+            setLoad(true);
+            setSearchFilmQuery(searchFilmQuery); 
+            localStorage.setItem('searchFilmQuery', searchFilmQuery);
+            localStorage.setItem('shortFilmChec', shortFilmCheck);
+            
+            if (!localStorage.getItem('cardsMovies')) {
+                moviesApi.getMoviesCards()
+                .then((data) => {
+                    // setCards(data);
+                    setMoreButtonVisibility(true);
+                    listMoviesCards(data, searchFilmQuery, shortFilmCheck);
+                    localStorage.setItem('cardsMovies', JSON.stringify(data));
+                    setErrorFormMessage('');
+                })
+                .catch((err) => {
+                    setErrorsSearchMovies('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
+                    setErrorFormMessage('');
+                })
+                .finally(()=>{
+                    setLoad(false);
+                })
+            }else{
+                listMoviesCards(JSON.parse(localStorage.getItem('cardsMovies')), searchFilmQuery, shortFilmCheck);
+                setMoreButtonVisibility(true);
+                setErrorFormMessage('');
+                setLoad(false);
+
+            }
+        }else{
+            setLoad(false);
+            setErrorFormMessage('Нужно ввести ключевое слово');
+            setErrorsSearchMovies('');
+        }
+        if (!filmsFilter.length && searchFilmQuery) {
+            setErrorsSearchMovies('Ничего не найдено');
+        }
+    }
+
+    const listMoviesCards = (cards, searchFilmQuery, shortFilmCheck) => {
+        const spisokFilmov = filterSearch(cards, searchFilmQuery);
+        setfilmsFilter( shortFilmCheck ? shortFiterFilms(spisokFilmov) : spisokFilmov);
+    };
+
+    useEffect(()=>{
+        const foundCard = JSON.parse(localStorage.getItem('cardsMovies'));
+        const searchQuery = localStorage.getItem('searchFilmQuery');
+        if (foundCard && searchQuery) {
+            listMoviesCards(foundCard, searchQuery, shortFilmCheck);
+        }
+    }, [searchFilmQuery, shortFilmCheck]);
+
+  
 
     return(
         <section className="movies">
-            <SearchForm />
-            { load ? 
-            <Preloader /> : 
-            <MoviesCardList
-            moviesCard={moviesCard}
-            moreButtonVisibility = {true} />
-}
+            <SearchForm 
+                filmSearchSubmit={handleFilmSearchSubmit}
+                shortFilmCheck={shortFilmCheck}
+                chandgeShortFilmCheck={checkShortFilm}
+                errorFormMessage={errorFormMessage}
+            />
+
+            { load 
+                ? <Preloader />
+                    : filmsFilter.length
+                        ? <MoviesCardList
+                            cards={filmsFilter}
+                            moreButtonVisibility = {moreButtonVisibility}
+                            likeFlag={likeFlag}
+                            likePut={likePut}
+                            likeUnPut={likeUnPut}
+                            saveMovie={saveMovie}
+                        />
+                        : <ErrorMeasageMovies handleError = {errorsSearchMovies}/>
+            }
         </section>
     )
 };

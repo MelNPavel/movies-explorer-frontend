@@ -58,9 +58,13 @@
     color: #A0A0A0;
 }
 
-
  .login__error{
- 
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 12px;
+    text-align: left;
+    color: #ff6838;
+    height: 24px;
  }
  
  .login__buttons{
@@ -86,6 +90,11 @@
     color: white;
     padding: 15px 0;
     cursor: pointer;
+ }
+
+ .login__button-reg_disable{
+    opacity: 0.3;
+    pointer-events: none;
  }
  
  .login__link-signin{
@@ -129,6 +138,15 @@
      flex-direction: column;
 }
 
+.login-input__error{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    color:#FF6838;
+    padding-left: 5px;
+}
+
 @media screen and (max-width: 540px){
     .login{
         height: 500px;
@@ -167,7 +185,7 @@
     }
 
     .login__buttons{
-        margin-top: 145px;
+        margin-top: 100px;
         padding-bottom: 0;
     }
 }

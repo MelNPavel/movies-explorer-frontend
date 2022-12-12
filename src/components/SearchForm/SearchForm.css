@@ -79,10 +79,10 @@
 
 .search__checkbox-lable{
     display: inline-block;
-    width: 36px; /* ширина */
-    height: 20px; /* высота */
-    border-radius: 19px; /* радиус скругления */
-    background: #bfbfbf; /* цвет фона */
+    width: 36px;
+    height: 20px;
+    border-radius: 19px;
+    background: #bfbfbf;
     position: relative;
     z-index: 0;
     margin: 0;
@@ -94,15 +94,15 @@
 }
 .search__checkbox-lable::after{
     content: "";
-    height: 16px; /* высота кнопки */
-    width: 16px; /* ширина кнопки */
+    height: 16px;
+    width: 16px;
     border-radius: 17px;
-    background: #fff; /* цвет кнопки */
+    background: #fff;
     position: absolute;
     z-index: 1;
-    top: 2px; /* положение кнопки по вертикали относительно основы */
-    left: 2px; /* положение кнопки по горизонтали относительно основы */
-    transition-duration: 300ms; /* анимация */
+    top: 2px;
+    left: 2px;
+    transition-duration: 300ms;
 }
 
 .search__checkbox:checked + .search__checkbox-lable{
@@ -129,6 +129,15 @@
   align-items: center;
   padding-left: 25px;
   border-left: 1px solid #E8E8E8;
+}
+
+.search-input__error{
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12px;
+  text-align: left;
+  color:#FF6838;
+  height: 24px;
 }
 
 @media screen and (max-width: 768px){

@@ -5,7 +5,6 @@ import Tech from '../Techs/Techs.jsx';
 import AboutMe from '../AboutMe/AboutMe.jsx';
 import Portfolio from '../Portfolio/Portfolio.jsx';
 import './Main.css';
-// import Profile from '../Profile/Profile.js';
 
 function Main (props) {
     return (

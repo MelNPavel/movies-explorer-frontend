@@ -4,7 +4,8 @@ import './ErrorPage.css';
 
 function ErrorPage() {
     const history = useHistory();
-    function onback() {history.goBack()};
+
+    const onBack = () => history.goBack();
 
     return(
         <div className="error-page">
@@ -15,7 +16,7 @@ function ErrorPage() {
             <button 
             className='error-page__button'
             type='button'
-            onClick={onback}
+            onClick={onBack}
             >назад</button>
         </div>
     )
